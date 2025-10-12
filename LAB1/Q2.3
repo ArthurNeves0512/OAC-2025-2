@@ -1,0 +1,436 @@
+#DIRETIVA -O0 do Compiler sem modificações do Compiler
+
+v:
+        .word   9
+        .word   2
+        .word   5
+        .word   1
+        .word   8
+        .word   2
+        .word   4
+        .word   3
+        .word   6
+        .word   7
+        .word   10
+        .word   2
+        .word   32
+        .word   54
+        .word   2
+        .word   12
+        .word   6
+        .word   3
+        .word   1
+        .word   78
+        .word   54
+        .word   23
+        .word   1
+        .word   54
+        .word   2
+        .word   65
+        .word   3
+        .word   6
+        .word   55
+        .word   31
+show(int*, int):
+        addi    sp,sp,-32
+        sw      ra,28(sp)
+        sw      s0,24(sp)
+        addi    s0,sp,32
+        sw      a0,-20(s0)
+        sw      a1,-24(s0)
+        lw      a5,-20(s0)
+        lw      a4,-24(s0)
+         mv     t0,a5 
+         mv     t1,a4 
+         mv     t2,zero 
+loop1:  beq     t2,t1,fim1 
+        li      a7,1 
+        lw      a0,0(t0) 
+        ecall 
+        li      a7,11 
+        li      a0,9 
+        ecall 
+        addi    t0,t0,4 
+        addi    t2,t2,1 
+        j       loop1 
+fim1:   li      a7,11 
+        li      a0,10 
+        ecall 
+
+        nop
+        lw      ra,28(sp)
+        lw      s0,24(sp)
+        addi    sp,sp,32
+        jr      ra
+swap(int*, int):
+        addi    sp,sp,-48
+        sw      ra,44(sp)
+        sw      s0,40(sp)
+        addi    s0,sp,48
+        sw      a0,-36(s0)
+        sw      a1,-40(s0)
+        lw      a5,-40(s0)
+        slli    a5,a5,2
+        lw      a4,-36(s0)
+        add     a5,a4,a5
+        lw      a5,0(a5)
+        sw      a5,-20(s0)
+        lw      a5,-40(s0)
+        addi    a5,a5,1
+        slli    a5,a5,2
+        lw      a4,-36(s0)
+        add     a4,a4,a5
+        lw      a5,-40(s0)
+        slli    a5,a5,2
+        lw      a3,-36(s0)
+        add     a5,a3,a5
+        lw      a4,0(a4)
+        sw      a4,0(a5)
+        lw      a5,-40(s0)
+        addi    a5,a5,1
+        slli    a5,a5,2
+        lw      a4,-36(s0)
+        add     a5,a4,a5
+        lw      a4,-20(s0)
+        sw      a4,0(a5)
+        nop
+        lw      ra,44(sp)
+        lw      s0,40(sp)
+        addi    sp,sp,48
+        jr      ra
+sort(int*, int):
+        addi    sp,sp,-48
+        sw      ra,44(sp)
+        sw      s0,40(sp)
+        addi    s0,sp,48
+        sw      a0,-36(s0)
+        sw      a1,-40(s0)
+        sw      zero,-20(s0)
+        j       .L4
+.L8:
+        lw      a5,-20(s0)
+        addi    a5,a5,-1
+        sw      a5,-24(s0)
+        j       .L5
+.L7:
+        lw      a1,-24(s0)
+        lw      a0,-36(s0)
+        call    swap(int*, int)
+        lw      a5,-24(s0)
+        addi    a5,a5,-1
+        sw      a5,-24(s0)
+.L5:
+        lw      a5,-24(s0)
+        blt     a5,zero,.L6
+        lw      a5,-24(s0)
+        slli    a5,a5,2
+        lw      a4,-36(s0)
+        add     a5,a4,a5
+        lw      a4,0(a5)
+        lw      a5,-24(s0)
+        addi    a5,a5,1
+        slli    a5,a5,2
+        lw      a3,-36(s0)
+        add     a5,a3,a5
+        lw      a5,0(a5)
+        bgt     a4,a5,.L7
+.L6:
+        lw      a5,-20(s0)
+        addi    a5,a5,1
+        sw      a5,-20(s0)
+.L4:
+        lw      a4,-20(s0)
+        lw      a5,-40(s0)
+        blt     a4,a5,.L8
+        nop
+        nop
+        lw      ra,44(sp)
+        lw      s0,40(sp)
+        addi    sp,sp,48
+        jr      ra
+main:
+        addi    sp,sp,-16
+        sw      ra,12(sp)
+        sw      s0,8(sp)
+        addi    s0,sp,16
+        li      a1,30
+        lui     a5,%hi(v)
+        addi    a0,a5,%lo(v)
+        call    show(int*, int)
+        li      a1,30
+        lui     a5,%hi(v)
+        addi    a0,a5,%lo(v)
+        call    sort(int*, int)
+        li      a1,30
+        lui     a5,%hi(v)
+        addi    a0,a5,%lo(v)
+        call    show(int*, int)
+        li      a5,0
+        mv      a0,a5
+        lw      ra,12(sp)
+        lw      s0,8(sp)
+        addi    sp,sp,16
+        jr      ra
+
+#DIRETIVA -O3 do Compiler sem modificações do Compiler
+
+show(int*, int):
+         mv     t0,a0 
+         mv     t1,a1 
+         mv     t2,zero 
+loop1:  beq     t2,t1,fim1 
+        li      a7,1 
+        lw      a0,0(t0) 
+        ecall 
+        li      a7,11 
+        li      a0,9 
+        ecall 
+        addi    t0,t0,4 
+        addi    t2,t2,1 
+        j       loop1 
+fim1:   li      a7,11 
+        li      a0,10 
+        ecall 
+
+        ret
+swap(int*, int):
+        slli    a1,a1,2
+        add     a0,a0,a1
+        lw      a4,0(a0)
+        lw      a5,4(a0)
+        sw      a4,4(a0)
+        sw      a5,0(a0)
+        ret
+sort(int*, int):
+        ble     a1,zero,.L4
+        li      a6,-1
+        add     a7,a1,a6
+        mv      a1,a6
+.L7:
+        mv      a4,a6
+        mv      a5,a0
+        bne     a6,a1,.L6
+        j       .L8
+.L9:
+        sw      a3,-4(a5)
+        sw      a2,0(a5)
+        addi    a5,a5,-4
+        beq     a4,a1,.L8
+.L6:
+        lw      a2,-4(a5)
+        lw      a3,0(a5)
+        addi    a4,a4,-1
+        bgt     a2,a3,.L9
+.L8:
+        addi    a6,a6,1
+        addi    a0,a0,4
+        bne     a7,a6,.L7
+        ret
+.L4:
+        ret
+main:
+        addi    sp,sp,-16
+        lui     a0,%hi(.LANCHOR0)
+        sw      s0,8(sp)
+        sw      ra,12(sp)
+        addi    a0,a0,%lo(.LANCHOR0)
+        li      s0,30
+         mv     t0,a0 
+         mv     t1,s0 
+         mv     t2,zero 
+loop1:  beq     t2,t1,fim1 
+        li      a7,1 
+        lw      a0,0(t0) 
+        ecall 
+        li      a7,11 
+        li      a0,9 
+        ecall 
+        addi    t0,t0,4 
+        addi    t2,t2,1 
+        j       loop1 
+fim1:   li      a7,11 
+        li      a0,10 
+        ecall 
+
+        mv      a1,s0
+        call    sort(int*, int)
+        lui     a4,%hi(.LANCHOR0)
+        addi    a0,a4,%lo(.LANCHOR0)
+         mv     t0,a0 
+         mv     t1,s0 
+         mv     t2,zero 
+loop1:  beq     t2,t1,fim1 
+        li      a7,1 
+        lw      a0,0(t0) 
+        ecall 
+        li      a7,11 
+        li      a0,9 
+        ecall 
+        addi    t0,t0,4 
+        addi    t2,t2,1 
+        j       loop1 
+fim1:   li      a7,11 
+        li      a0,10 
+        ecall 
+
+        lw      ra,12(sp)
+        lw      s0,8(sp)
+        li      a0,0
+        addi    sp,sp,16
+        jr      ra
+        .set    .LANCHOR0,. + 0
+v:
+        .word   9
+        .word   2
+        .word   5
+        .word   1
+        .word   8
+        .word   2
+        .word   4
+        .word   3
+        .word   6
+        .word   7
+        .word   10
+        .word   2
+        .word   32
+        .word   54
+        .word   2
+        .word   12
+        .word   6
+        .word   3
+        .word   1
+        .word   78
+        .word   54
+        .word   23
+        .word   1
+        .word   54
+        .word   2
+        .word   65
+        .word   3
+        .word   6
+        .word   55
+        .word   31
+
+#DIRETIVA -Os do Compiler sem modificações do Compiler
+
+show(int*, int):
+         mv     t0,a0 
+         mv     t1,a1 
+         mv     t2,zero 
+loop1:  beq     t2,t1,fim1 
+        li      a7,1 
+        lw      a0,0(t0) 
+        ecall 
+        li      a7,11 
+        li      a0,9 
+        ecall 
+        addi    t0,t0,4 
+        addi    t2,t2,1 
+        j       loop1 
+fim1:   li      a7,11 
+        li      a0,10 
+        ecall 
+
+        ret
+swap(int*, int):
+        slli    a1,a1,2
+        add     a5,a0,a1
+        addi    a1,a1,4
+        add     a0,a0,a1
+        lw      a3,0(a0)
+        lw      a4,0(a5)
+        sw      a3,0(a5)
+        sw      a4,0(a0)
+        ret
+sort(int*, int):
+        addi    sp,sp,-48
+        sw      s1,36(sp)
+        sw      s2,32(sp)
+        sw      s3,28(sp)
+        sw      ra,44(sp)
+        sw      s0,40(sp)
+        mv      s3,a1
+        li      s1,0
+        li      s2,-1
+.L4:
+        blt     s1,s3,.L9
+        lw      ra,44(sp)
+        lw      s0,40(sp)
+        lw      s1,36(sp)
+        lw      s2,32(sp)
+        lw      s3,28(sp)
+        addi    sp,sp,48
+        jr      ra
+.L9:
+        slli    s0,s1,2
+        addi    a1,s1,-1
+        add     s0,a0,s0
+.L5:
+        bne     a1,s2,.L6
+.L8:
+        addi    s1,s1,1
+        j       .L4
+.L6:
+        lw      a4,-4(s0)
+        addi    s0,s0,-4
+        lw      a5,4(s0)
+        ble     a4,a5,.L8
+        sw      a1,12(sp)
+        sw      a0,8(sp)
+        call    swap(int*, int)
+        lw      a1,12(sp)
+        lw      a0,8(sp)
+        addi    a1,a1,-1
+        j       .L5
+main:
+        lui     a0,%hi(.LANCHOR0)
+        addi    sp,sp,-16
+        addi    a0,a0,%lo(.LANCHOR0)
+        li      a1,30
+        sw      ra,12(sp)
+        sw      s0,8(sp)
+        call    show(int*, int)
+        lui     s0,%hi(.LANCHOR0)
+        addi    a0,s0,%lo(.LANCHOR0)
+        li      a1,30
+        call    sort(int*, int)
+        addi    a0,s0,%lo(.LANCHOR0)
+        li      a1,30
+        call    show(int*, int)
+        lw      ra,12(sp)
+        lw      s0,8(sp)
+        li      a0,0
+        addi    sp,sp,16
+        jr      ra
+        .set    .LANCHOR0,. + 0
+v:
+        .word   9
+        .word   2
+        .word   5
+        .word   1
+        .word   8
+        .word   2
+        .word   4
+        .word   3
+        .word   6
+        .word   7
+        .word   10
+        .word   2
+        .word   32
+        .word   54
+        .word   2
+        .word   12
+        .word   6
+        .word   3
+        .word   1
+        .word   78
+        .word   54
+        .word   23
+        .word   1
+        .word   54
+        .word   2
+        .word   65
+        .word   3
+        .word   6
+        .word   55
+        .word   31
