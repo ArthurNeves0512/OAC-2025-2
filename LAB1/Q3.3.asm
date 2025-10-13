@@ -21,19 +21,54 @@ main:
   
   fcvt.s.d f2,f2#setup register for single precision
   fcvt.s.d f1,f1#setup register for single precision
-  
+ 
+
+
+
  # List of registers used and reponsibilities
  # t0 -> count used by iterator
- # t1 -> float vector iterator
- # f2 ->
- # f1 ->
+ # t1 -> iterator used by the tree vectors. x[t1+a0] X_real[ti+a1] X_imag[t1+a2]
+ # f2 ->x[t1]
 dftLoop:
+  jal ra,iteratorIncrement
+  
+  jal ra,xVectorIteration
+ 
+  jal ra,x_RealVectorIteration
+
+  jal ra,x_ImagVectorIteration
+
+  blt t0,a3,dftLoop
+  jal zero,exit
+
+iteratorIncrement:
   slli t1,t0,2
   addi t0,t0,1
-  add t1,t1,a0
-  flw f2,0(t1)
-  fadd.s f1,f1,f2
-  blt t0,a3,dftLoop
+  jalr zero,0(ra)
+
+xVectorIteration:
+# fazer a manipualçao aqui para calcular o cos e seno.
+# aqui eu so to somando todos os elementos pra checar se a operacao estava sendo feita certa
+  add t2,t1,a0
+  flw f2,0(t2) 
+  fadd.s f1,f1,f2 
+  jalr zero,0(ra)
+
+x_RealVectorIteration:
+# fazer a manipualçao aqui com o cos.
+# aqui eu so to somando todos os elementos pra checar se a operacao estava sendo feita certa
+  add t2,t1,a1
+  flw f2,0(t2) 
+  fadd.s f1,f1,f2 
+  jalr zero,0(ra)
+
+x_ImagVectorIteration:
+# fazer a manipualçao aqui com o seno.
+# aqui eu so to somando todos os elementos pra checar se a operacao estava sendo feita certa
+  add t2,t1,a2
+  flw f2,0(t2) 
+  fadd.s f1,f1,f2 
+  jalr zero,0(ra)
 
 exit:
 
