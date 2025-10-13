@@ -1,6 +1,6 @@
 .data
 N: .word 8
-x: .float 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+x: .float 1.0, 3.0, 2.0, 1.0, 1.0, 1.0, 2.0, 1.0
 X_real: .float 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 X_imag: .float 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
 
@@ -29,12 +29,12 @@ main:
  # f1 ->
 dftLoop:
   slli t1,t0,2
-  addi t1,t0,1
+  addi t0,t0,1
   add t1,t1,a0
   flw f2,0(t1)
   fadd.s f1,f1,f2
-  blt a4,a3,dftLoop
-	
+  blt t0,a3,dftLoop
+
 exit:
 
 
