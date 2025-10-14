@@ -1,0 +1,41 @@
+#============================= ITEM A =====================================
+
+#arquivo sort.s já ordena o vetor em ordem crescente, código dO procedimento sort(INALTERADO):
+
+SORT:	addi sp,sp,-20
+	sw ra,16(sp)
+	sw s3,12(sp)                                                                    CONTAGEM
+	sw s2,8(sp)                         # INSTRUÇÕES TIPO R: add                 |      1
+	sw s1,4(sp)                         # INSTRUÇÕES TIPO I: addi, lw, slli, ret |      14
+	sw s0,0(sp)                         # INSTRUÇÕES TIPO S: sw                  |      5
+	mv s2,a0                            # INSTRUÇÕES TIPO B: bge, blt            |      3
+	mv s3,a1                            # INSTRUÇÕES TIPO J: jal, j              |      3
+	mv s0,zero                          # TOTAL:                                        26
+for1:	bge s0,s3,exit1
+	addi s1,s0,-1
+for2:	blt s1,zero,exit2
+	slli t1,s1,2
+	add t2,s2,t1
+	lw t3,0(t2)
+	lw t4,4(t2)
+	bge t4,t3,exit2
+	mv a0,s2
+	mv a1,s1
+	jal SWAP
+	addi s1,s1,-1
+	j for2
+exit2:	addi s0,s0,1
+	j for1
+exit1: 	lw s0,0(sp)
+	lw s1,4(sp)
+	lw s2,8(sp)
+	lw s3,12(sp)
+	lw ra,16(sp)
+	addi sp,sp,20
+	ret
+
+
+#Tamanho do código executável do SORT em bytes: 26 instruções × 4 bytes = 104 bytes
+
+#Tamanho em bytes da Memória de dados usada: Vetor com 30 .word  -> Cada .word = 4 bytes:
+30 elementos × 4 bytes = 120 bytes
