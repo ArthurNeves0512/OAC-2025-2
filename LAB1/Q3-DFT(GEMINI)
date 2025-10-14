@@ -1,0 +1,210 @@
+.data
+two_pi: .float 6.283185
+N: .word 4
+x: .float 1.0, 0.0, -1.0, 0.0
+X_real: .space 16
+X_imag: .space 16
+
+msg_header:    .ascii "x[n]      X[k]\n"
+               .byte 0
+msg_separator: .ascii "      "
+               .byte 0
+msg_plus:      .ascii "+"
+               .byte 0
+msg_i_newline: .ascii "i\n"
+               .byte 0
+
+.text
+.globl main
+
+main:
+    # Salva registradores
+    addi sp, sp, -28
+    sw   ra, 24(sp)
+    sw   s0, 20(sp)
+    sw   s1, 16(sp)
+    sw   s2, 12(sp)
+    sw   s3, 8(sp)
+    sw   s4, 4(sp)
+    sw   s5, 0(sp)
+
+    la   t0, N
+    lw   s0, 0(t0)        # s0 = N
+
+    # ==========================================================
+    # FASE 1: CÁLCULO E ARMAZENAMENTO DE TODOS OS X[k]
+    # ==========================================================
+    la   s1, X_real
+    la   s2, X_imag
+    li   s3, 0
+
+calc_k_loop:
+    bge  s3, s0, start_printing_phase
+
+    fcvt.s.w fa4, x0
+    fcvt.s.w fa5, x0
+
+    li   s4, 0
+    la   s5, x
+
+calc_n_loop:
+    bge  s4, s0, store_result
+
+    flw  fa2, 0(s5)
+    la   t5, two_pi
+    flw  ft0, 0(t5)
+    fcvt.s.w ft1, s3
+    fcvt.s.w ft2, s4
+    fmul.s ft3, ft1, ft2
+    fmul.s ft4, ft3, ft0
+    fcvt.s.w ft5, s0
+    fdiv.s fa0, ft4, ft5
+    jal  ra, cos_sin
+    fmv.s ft6, fa0
+    fmv.s ft7, fa1
+    fmul.s ft8, fa2, ft6
+    fmul.s ft9, fa2, ft7
+    fadd.s fa4, fa4, ft8
+    fsub.s fa5, fa5, ft9
+    addi s4, s4, 1
+    addi s5, s5, 4
+    j    calc_n_loop
+
+store_result:
+    fsw  fa4, 0(s1)
+    fsw  fa5, 0(s2)
+    addi s1, s1, 4
+    addi s2, s2, 4
+    addi s3, s3, 1
+    j    calc_k_loop
+
+start_printing_phase:
+    # ==========================================================
+    # FASE 2: IMPRESSÃO DA TABELA USANDO OS VETORES
+    # ==========================================================
+    la   a0, msg_header
+    li   a7, 4
+    ecall
+
+    li   s3, 0
+    la   s1, x
+    la   s2, X_real
+    la   s4, X_imag
+
+print_loop:
+    bge  s3, s0, end_program
+
+    # Imprime x[n]
+    flw  fa0, 0(s1)
+    li   a7, 2
+    ecall
+
+    # Imprime separador
+    la   a0, msg_separator
+    li   a7, 4
+    ecall
+
+    # Imprime a parte real de X[k]
+    flw  fa0, 0(s2)
+    li   a7, 2
+    ecall
+
+    # --- INÍCIO DA ALTERAÇÃO ---
+    # Lógica para imprimir o '+' apenas se a parte imaginária for >= 0
+
+    # Carrega a parte imaginária para verificação
+    flw  fa1, 0(s4)
+
+    # Prepara o valor 0.0 em um registrador para comparação
+    fcvt.s.w fa7, x0
+
+    # Compara: t0 = (fa1 < 0.0) ? 1 : 0
+    flt.s t0, fa1, fa7
+
+    # Se t0 for diferente de zero (ou seja, se o número for negativo), pula a impressão do '+'
+    bnez t0, skip_plus_print
+
+    # Se o número for >= 0, imprime o '+'
+    la   a0, msg_plus
+    li   a7, 4
+    ecall
+
+skip_plus_print:
+    # Imprime a parte imaginária (que já está em fa1)
+    fmv.s fa0, fa1
+    li   a7, 2
+    ecall
+
+    # Imprime "i" e a quebra de linha
+    la   a0, msg_i_newline
+    li   a7, 4
+    ecall
+    # --- FIM DA ALTERAÇÃO ---
+
+    addi s3, s3, 1
+    addi s1, s1, 4
+    addi s2, s2, 4
+    addi s4, s4, 4
+    j    print_loop
+
+end_program:
+    lw   ra, 24(sp)
+    lw   s0, 20(sp)
+    lw   s1, 16(sp)
+    lw   s2, 12(sp)
+    lw   s3, 8(sp)
+    lw   s4, 4(sp)
+    lw   s5, 0(sp)
+    addi sp, sp, 28
+    li   a7, 10
+    ecall
+
+cos_sin:
+    addi sp, sp, -16
+    sw   ra, 12(sp)
+    fcvt.s.w fa7, x0
+    la   t0, two_pi
+    flw  ft3, 0(t0)
+    fdiv.s ft0, fa0, ft3
+    fcvt.w.s t0, ft0
+    fcvt.s.w ft1, t0
+    fmul.s ft2, ft1, ft3
+    fsub.s fa0, fa0, ft2
+    flt.s t1, fa0, fa7
+    beqz t1, start_sincos
+    fadd.s fa0, fa0, ft3
+start_sincos:
+    li   t2, 1
+    li   t3, 10
+    fmv.s fs1, fa0
+    fmul.s fs2, fs1, fs1
+    fneg.s fs2, fs2
+    li   t4, 1
+    fcvt.s.w fa0, t4
+    fmv.s fa1, fs1
+    fmv.s ft0, fa1
+    fmv.s ft1, fa0
+sincos_loop:
+    bge  t2, t3, sincos_end_loop
+    slli t5, t2, 1
+    addi t6, t5, -1
+    fcvt.s.w ft2, t5
+    fcvt.s.w ft3, t6
+    fmul.s ft2, ft2, ft3
+    fmul.s ft1, ft1, fs2
+    fdiv.s ft1, ft1, ft2
+    fadd.s fa0, fa0, ft1
+    slli t5, t2, 1
+    addi t6, t5, 1
+    fcvt.s.w ft2, t5
+    fcvt.s.w ft3, t6
+    fmul.s ft2, ft2, ft3
+    fmul.s ft0, ft0, fs2
+    fdiv.s ft0, ft0, ft2
+    fadd.s fa1, fa1, ft0
+    addi t2, t2, 1
+    j    sincos_loop
+sincos_end_loop:
+    lw   ra, 12(sp)
+    addi sp, sp, 16
+    ret
