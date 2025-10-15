@@ -1,125 +1,100 @@
 #============================= ITEM A =====================================
 Análise Detalhada das Equações de Tempo
-
 Melhor Caso - Vetor Ordenado Vo[n] = {1, 2, 3, ..., n}
-
-No melhor caso, o loop interno nunca é executado porque a condição bge t4,t3,exit2 
-é sempre verdadeira (o vetor já está ordenado).
+No melhor caso, o loop interno nunca é executado porque a condição bge t4,t3,exit2 é sempre verdadeira (o vetor já está ordenado).
 
 Contagem instrução por instrução:
 
 Inicialização (executada 1 vez):
 
+text
 addi sp,sp,-20 = 1
-
-sw ra,16(sp) = 1
-
-sw s3,12(sp) = 1
-
-sw s2,8(sp) = 1
-
-sw s1,4(sp) = 1
-
-sw s0,0(sp) = 1
-
-mv s2,a0 = 1
-
-mv s3,a1 = 1
-
-mv s0,zero = 1
-
-Total inicialização: 9 instruções
-
+sw ra,16(sp)   = 1  
+sw s3,12(sp)   = 1
+sw s2,8(sp)    = 1
+sw s1,4(sp)    = 1
+sw s0,0(sp)    = 1
+mv s2,a0       = 1
+mv s3,a1       = 1
+mv s0,zero     = 1
+**Total inicialização: 9 instruções**
 Loop externo (executado n vezes):
 
-bge s0,s3,exit1 = 1
-
-addi s1,s0,-1 = 1
-
-blt s1,zero,exit2 = 1 (sempre salta pois s1 = -1 na primeira iteração)
-
-addi s0,s0,1 = 1
-
-j for1 = 1
-
-Total por iteração: 5 instruções
-
+text
+bge s0,s3,exit1     = n+1
+addi s1,s0,-1       = n
+blt s1,zero,exit2   = n (sempre salta)
+addi s0,s0,1        = n
+j for1              = n
+**Total por iteração: 5 instruções (considerando bge executado n+1 vezes)**
 Finalização (executada 1 vez):
 
-lw s0,0(sp) = 1
-
-lw s1,4(sp) = 1
-
-lw s2,8(sp) = 1
-
-lw s3,12(sp) = 1
-
-lw ra,16(sp) = 1
-
-addi sp,sp,20 = 1
-
-ret = 1
-
-Total finalização: 7 instruções
-
-Equação final: Io(n) = 9 + 5n + 7 = 5n + 16
+text
+lw s0,0(sp)     = 1
+lw s1,4(sp)     = 1
+lw s2,8(sp)     = 1
+lw s3,12(sp)    = 1
+lw ra,16(sp)    = 1
+addi sp,sp,20   = 1
+ret             = 1
+**Total finalização: 7 instruções**
+Equação final: Io(n) = 9 + (5n + 1) + 7 = 5n + 17
 
 Pior Caso - Vetor Ordenado Inversamente Vi[n] = {n, n-1, ..., 1}
 No pior caso, o loop interno executa completamente para cada elemento.
 
 Loop interno (para i de 0 até n-1, executa i vezes):
 
-blt s1,zero,exit2 = 1
+text
+blt s1,zero,exit2    = 1
+slli t1,s1,2         = 1  
+add t2,s2,t1         = 1
+lw t3,0(t2)          = 1
+lw t4,4(t2)          = 1
+bge t4,t3,exit2      = 1 (nunca salta no pior caso)
+mv a0,s2             = 1
+mv a1,s1             = 1
+jal SWAP             = 1
+addi s1,s1,-1        = 1
+j for2               = 1
+**Total por iteração interna: 11 instruções**
+MAIS instruções do SWAP (7 por chamada):
 
-slli t1,s1,2 = 1
+text
+slli t1,a1,2 = 1
+add t1,a0,t1 = 1  
+lw t0,0(t1)  = 1
+lw t2,4(t1)  = 1
+sw t2,0(t1)  = 1
+sw t0,4(t1)  = 1
+ret          = 1
+**Total SWAP: 7 instruções**
+Total por iteração interna completa: 11 + 7 = 18 instruções
 
-add t2,s2,t1 = 1
+Número total de iterações do loop interno: ∑(i=0 até n-1) i = n(n-1)/2
 
-lw t3,0(t2) = 1
-
-lw t4,4(t2) = 1
-
-bge t4,t3,exit2 = 1 (nunca salta no pior caso)
-
-mv a0,s2 = 1
-
-mv a1,s1 = 1
-
-jal SWAP = 1
-
-addi s1,s1,-1 = 1
-
-j for2 = 1
-
-Total por iteração interna: 11 instruções
-
-Número total de iterações do loop interno:
-∑(i=0 até n-1) de i = n(n-1)/2
-
-Instruções do loop interno total: 11 × n(n-1)/2
+Instruções do loop interno total: 18 × n(n-1)/2 = 9n(n-1)
 
 Instruções do loop externo (além do interno):
 
-Por iteração: bge, addi, addi, j = 4 instruções
+Por iteração: bge, addi s1, addi s0, j for1 = 4 instruções
 
-Total: 4n
+Total: 4n + 1 (bge executado n+1 vezes)
 
 Inicialização: 9 instruções
 Finalização: 7 instruções
 
 Equação final:
-Ii(n) = 9 + 4n + [11 × n(n-1)/2] + 7
-= 16 + 4n + (11n² - 11n)/2
-= 16 + 4n + 5.5n² - 5.5n
-= 5.5n² - 1.5n + 16
+Ii(n) = 9 + (4n + 1) + 9n(n-1) + 7
+= 9 + 4n + 1 + 9n² - 9n + 7
+= 9n² - 5n + 17
 
 Tempos de Execução
 Com f = 50MHz e CPI = 1:
 
-Melhor caso: to(n) = (5n + 16) / 50,000,000 segundos
+Melhor caso: to(n) = (5n + 17) / 50,000,000 segundos
 
-Pior caso: ti(n) = (5.5n² - 1.5n + 16) / 50,000,000 segundos
+Pior caso: ti(n) = (9n² - 5n + 17) / 50,000,000 segundos
 
-Essas equações confirmam a complexidade O(n) no melhor caso e O(n²) no 
-pior caso da aplicação da função SORT().
+Estas equações confirmam a complexidade O(n) no melhor caso e O(n²) no pior caso da aplicação da função SORT(), considerando todas as instruções incluindo as chamadas ao procedimento SWAP.
 
