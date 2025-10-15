@@ -157,3 +157,19 @@ fim1:	li a7,11
 
 # Número total de instruções do programa: 4922
 #Tempo do SORT (ms): 31 
+
+#============================= ITEM C =====================================
+
+# Código para capturar o tempo de execução em milissegundos e o 
+# número de instruções executadas:
+
+ csrr s1,3074 # instruções antes
+ csrr s0,3073 # tempo antes
+ jal SORT	  # executa procedimento
+ csrr t0,3073 # tempo depois
+ csrr t1,3074 # instruções depois
+ sub s0,t0,s0 # calcula tempo
+ sub s1,t1,s1 # calcula instruções
+
+ # OBS: Também é possível medir o tempo de execução e o número de instruções por meio
+ # das ferramentas nativas no próprio RARS.
