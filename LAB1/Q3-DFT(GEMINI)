@@ -20,6 +20,12 @@ msg_plus:      .ascii "+"
                .byte 0
 msg_i_newline: .ascii "i\n"
                .byte 0
+msg_performance_header:    .ascii "\n--- Performance Metrics ---\nInstructions: "
+                           .byte 0
+msg_performance_separator: .ascii " | Time: "
+                           .byte 0
+msg_performance_ms:        .ascii " ms\n"
+                           .byte 0
 
 .text
 .globl main
@@ -35,9 +41,20 @@ main:
     la   a2, X_imag   # a2 <- endereço de X_imag[k]
     lw   a3, N        # a3 <- N
 
+    # --- INÍCIO DA MEDIÇÃO DE DESEMPENHO ---
+    csrr s1, 3074      # s1 = número de instruções inicial (instret)
+    csrr s0, 3073      # s0 = tempo inicial (time)
+    # --- FIM DA MEDIÇÃO DE DESEMPENHO ---
 
     # Chama o procedimento DFT para realizar os cálculos
     jal  ra, DFT
+
+    # --- INÍCIO DO CÁLCULO DE DESEMPENHO ---
+    csrr t0, 3073      # t0 = tempo final (time)
+    csrr t1, 3074      # t1 = número de instruções final (instret)
+    sub s0, t0, s0     # s0 = tempo_exec (armazena o resultado em s0)
+    sub s1, t1, s1     # s1 = num_instrucoes (armazena o resultado em s1)
+    # --- FIM DO CÁLCULO DE DESEMPENHO ---
 
     # Após o retorno de DFT, os vetores X_real e X_imag estão preenchidos.
     # A execução continua para a fase de impressão.
@@ -103,6 +120,33 @@ skip_plus_print:
     j    print_loop
 
 end_program:
+    # --- INÍCIO DA SEÇÃO DE RELATÓRIO DE DESEMPENHO ---
+    # Imprime um cabeçalho para a seção de desempenho.
+    la   a0, msg_performance_header
+    li   a7, 4
+    ecall
+    
+    # Imprime o número total de instruções (que está em s1)
+    mv   a0, s1
+    li   a7, 1 # Syscall: Print Integer
+    ecall
+
+    # Imprime o separador
+    la   a0, msg_performance_separator
+    li   a7, 4
+    ecall
+
+    # Imprime o tempo total de execução (que está em s0)
+    mv   a0, s0
+    li   a7, 1
+    ecall
+
+    # Imprime a unidade de tempo
+    la   a0, msg_performance_ms
+    li   a7, 4
+    ecall
+    # --- FIM DA SEÇÃO DE RELATÓRIO DE DESEMPENHO ---
+
     # Restaura o endereço de retorno e limpa a pilha
     lw   ra, 0(sp)
     addi sp, sp, 4
