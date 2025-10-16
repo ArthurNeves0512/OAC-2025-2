@@ -1,0 +1,273 @@
+.data
+
+##DATA_SECTION##
+
+.text
+.globl main
+
+main:
+
+    addi sp, sp, -4
+    sw   ra, 0(sp)
+
+    # Prepara os argumentos para a chamada do procedimento DFT
+    la   a0, x        # a0 <- endereço de x[n]
+    la   a1, X_real   # a1 <- endereço de X_real[k]
+    la   a2, X_imag   # a2 <- endereço de X_imag[k]
+    lw   a3, N        # a3 <- N
+
+    # --- INÍCIO DA MEDIÇÃO DE DESEMPENHO ---
+    csrr s1, 3074      # s1 = número de instruções inicial (instret)
+    csrr s0, 3073      # s0 = tempo inicial (time)
+    # --- FIM DA MEDIÇÃO DE DESEMPENHO ---
+
+    # Chama o procedimento DFT para realizar os cálculos
+    jal  ra, DFT
+
+    # --- INÍCIO DO CÁLCULO DE DESEMPENHO ---
+    csrr t0, 3073      # t0 = tempo final (time)
+    csrr t1, 3074      # t1 = número de instruções final (instret)
+    sub s0, t0, s0     # s0 = tempo_exec (armazena o resultado em s0)
+    sub s1, t1, s1     # s1 = num_instrucoes (armazena o resultado em s1)
+    # --- FIM DO CÁLCULO DE DESEMPENHO ---
+
+    # Após o retorno de DFT, os vetores X_real e X_imag estão preenchidos.
+    # A execução continua para a fase de impressão.
+
+start_printing_phase:
+    # ==========================================================
+    # FASE 2: IMPRESSÃO DA TABELA USANDO OS VETORES
+    # ==========================================================
+    la   a0, msg_header
+    li   a7, 4
+    ecall
+
+    li   s3, 0
+    lw   s0, N
+    la   s1, x
+    la   s2, X_real
+    la   s4, X_imag
+
+print_loop:
+    bge  s3, s0, end_program # Termina se já imprimiu N linhas
+
+    # Imprime x[n]
+    flw  fa0, 0(s1)
+    li   a7, 2
+    ecall
+
+    # Imprime separador
+    la   a0, msg_separator
+    li   a7, 4
+    ecall
+
+    # Imprime a parte real de X[k]
+    flw  fa0, 0(s2)
+    li   a7, 2
+    ecall
+
+    # Lógica para imprimir o '+' apenas se a parte imaginária for >= 0
+    flw  fa1, 0(s4)      # Carrega a parte imaginária
+    fcvt.s.w fa7, zero   # Prepara 0.0 para comparação
+    flt.s t0, fa1, fa7   # t0 = (parte_imag < 0.0) ? 1 : 0
+    bnez t0, skip_plus_print # Se for negativo, não imprime '+'
+
+    la   a0, msg_plus    # Imprime '+'
+    li   a7, 4
+    ecall
+
+skip_plus_print:
+    # Imprime a parte imaginária (que já está em fa1)
+    fmv.s fa0, fa1
+    li   a7, 2
+    ecall
+
+    # Imprime "i" e a quebra de linha
+    la   a0, msg_i_newline
+    li   a7, 4
+    ecall
+    # --- FIM DA ALTERAÇÃO ---
+
+    addi s3, s3, 1
+    addi s1, s1, 4
+    addi s2, s2, 4
+    addi s4, s4, 4
+    j    print_loop
+
+end_program:
+    # --- INÍCIO DA SEÇÃO DE RELATÓRIO DE DESEMPENHO ---
+    # Imprime um cabeçalho para a seção de desempenho.
+    la   a0, msg_performance_header
+    li   a7, 4
+    ecall
+    
+    # Imprime o número total de instruções (que está em s1)
+    mv   a0, s1
+    li   a7, 1 # Syscall: Print Integer
+    ecall
+
+    # Imprime o separador
+    la   a0, msg_performance_separator
+    li   a7, 4
+    ecall
+
+    # Imprime o tempo total de execução (que está em s0)
+    mv   a0, s0
+    li   a7, 1
+    ecall
+
+    # Imprime a unidade de tempo
+    la   a0, msg_performance_ms
+    li   a7, 4
+    ecall
+    # --- FIM DA SEÇÃO DE RELATÓRIO DE DESEMPENHO ---
+
+    # Restaura o endereço de retorno e limpa a pilha
+    lw   ra, 0(sp)
+    addi sp, sp, 4
+    
+    # Finaliza o programa
+    li   a7, 10
+    ecall
+
+DFT:
+    # Aloca espaço na pilha para salvar os registradores
+    addi sp, sp, -28
+    sw   ra, 24(sp)
+    sw   s0, 20(sp) # Salvará N
+    sw   s1, 16(sp) # Salvará ponteiro para X_real
+    sw   s2, 12(sp) # Salvará ponteiro para X_imag
+    sw   s3, 8(sp)  # Salvará k (contador do loop externo)
+    sw   s4, 4(sp)  # Salvará n (contador do loop interno)
+    sw   s5, 0(sp)  # Salvará ponteiro para x[n]
+
+    # Copia os argumentos para os registradores de trabalho
+    mv   s0, a3         # s0 = N
+    mv   s1, a1         # s1 = ponteiro para X_real
+    mv   s2, a2         # s2 = ponteiro para X_imag
+    # O ponteiro para x (a0) será usado dentro do loop
+    
+    li   s3, 0        # Inicializa k = 0
+
+calc_k_loop: # Loop externo, itera sobre k de 0 a N-1
+    bge  s3, s0, dft_done # Se k >= N, o cálculo terminou
+
+    # Zera os acumuladores para o cálculo do X[k] atual
+    fcvt.s.w fa4, x0   # Acumulador da parte real X_real[k] = 0.0
+    fcvt.s.w fa5, x0   # Acumulador da parte imaginária X_imag[k] = 0.0
+
+    li   s4, 0        # Inicializa n = 0
+    mv   s5, a0       # s5 (ponteiro para x) recebe o endereço de a0
+
+calc_n_loop: # Loop interno, itera sobre n de 0 a N-1
+    bge  s4, s0, store_result # Se n >= N, a soma para este k terminou
+
+    # Carrega o valor de x[n]
+    flw  fa2, 0(s5)
+
+    # Calcula o ângulo: theta = (2 * pi * k * n) / N
+    la   t5, two_pi
+    flw  ft0, 0(t5)      # ft0 = 2*pi
+    fcvt.s.w ft1, s3      # ft1 = k
+    fcvt.s.w ft2, s4      # ft2 = n
+    fmul.s ft3, ft1, ft2  # ft3 = k * n
+    fmul.s ft4, ft3, ft0  # ft4 = 2*pi*k*n
+    fcvt.s.w ft5, s0      # ft5 = N
+    fdiv.s fa0, ft4, ft5  # fa0 = theta, pronto para ser passado para cos_sin
+
+    jal  ra, cos_sin
+    
+    # Usa os resultados para acumular os valores
+    fmv.s ft6, fa0       # ft6 = cos(theta)
+    fmv.s ft7, fa1       # ft7 = sin(theta)
+    
+    # X_real[k] += x[n] * cos(theta)
+    fmul.s ft8, fa2, ft6
+    fadd.s fa4, fa4, ft8
+    
+    # X_imag[k] -= x[n] * sin(theta)  (o sinal negativo vem de e^(-i*theta))
+    fmul.s ft9, fa2, ft7
+    fsub.s fa5, fa5, ft9
+
+    # Avança para o próximo n
+    addi s4, s4, 1       # n++
+    addi s5, s5, 4       # Avança o ponteiro de x[n]
+    j    calc_n_loop
+
+store_result:
+    # Armazena o resultado final de X[k] nos vetores de saída
+    fsw  fa4, 0(s1)
+    fsw  fa5, 0(s2)
+
+    # Avança para o próximo k
+    addi s1, s1, 4       # Avança o ponteiro de X_real
+    addi s2, s2, 4       # Avança o ponteiro de X_imag
+    addi s3, s3, 1       # k++
+    j    calc_k_loop
+
+dft_done:
+    # Restaura os registradores salvos da pilha
+    lw   ra, 24(sp)
+    lw   s0, 20(sp)
+    lw   s1, 16(sp)
+    lw   s2, 12(sp)
+    lw   s3, 8(sp)
+    lw   s4, 4(sp)
+    lw   s5, 0(sp)
+    addi sp, sp, 28
+    
+    # Retorna para o chamador (main)
+    ret
+
+cos_sin:
+    addi sp, sp, -16
+    sw   ra, 12(sp)
+    fcvt.s.w fa7, x0
+    la   t0, two_pi
+    flw  ft3, 0(t0)
+    fdiv.s ft0, fa0, ft3
+    fcvt.w.s t0, ft0
+    fcvt.s.w ft1, t0
+    fmul.s ft2, ft1, ft3
+    fsub.s fa0, fa0, ft2
+    flt.s t1, fa0, fa7
+    beqz t1, start_sincos
+    fadd.s fa0, fa0, ft3
+
+start_sincos:
+    li   t2, 1
+    li   t3, 15 # Aumentado para maior precisão
+    fmv.s fs1, fa0
+    fmul.s fs2, fs1, fs1
+    fneg.s fs2, fs2
+    li   t4, 1
+    fcvt.s.w fa0, t4
+    fmv.s fa1, fs1
+    fmv.s ft0, fa1
+    fmv.s ft1, fa0
+
+sincos_loop:
+    bge  t2, t3, sincos_end_loop
+    slli t5, t2, 1
+    addi t6, t5, -1
+    fcvt.s.w ft2, t5
+    fcvt.s.w ft3, t6
+    fmul.s ft2, ft2, ft3
+    fmul.s ft1, ft1, fs2
+    fdiv.s ft1, ft1, ft2
+    fadd.s fa0, fa0, ft1
+    slli t5, t2, 1
+    addi t6, t5, 1
+    fcvt.s.w ft2, t5
+    fcvt.s.w ft3, t6
+    fmul.s ft2, ft2, ft3
+    fmul.s ft0, ft0, fs2
+    fdiv.s ft0, ft0, ft2
+    fadd.s fa1, fa1, ft0
+    addi t2, t2, 1
+    j    sincos_loop
+
+sincos_end_loop:
+    lw   ra, 12(sp)
+    addi sp, sp, 16
+    ret
