@@ -6,7 +6,7 @@ two_pi: .float 6.2831853
 N: .word 4
 x: .float 1.0, 0.0, -1.0, 0.0
 
-# Espaço para 4 floats
+# Espaço para N floats = N*4
 X_real: .space 16
 # Espaço para 4 floats
 X_imag: .space 16
@@ -52,8 +52,8 @@ main:
     # --- INÍCIO DO CÁLCULO DE DESEMPENHO ---
     csrr t0, 3073      # t0 = tempo final (time)
     csrr t1, 3074      # t1 = número de instruções final (instret)
-    sub s0, t0, s0     # s0 = tempo_exec (armazena o resultado em s0)
-    sub s1, t1, s1     # s1 = num_instrucoes (armazena o resultado em s1)
+    sub s5, t0, s0     # s0 = tempo_exec (armazena o resultado em s0)
+    sub s6, t1, s1     # s1 = num_instrucoes (armazena o resultado em s1)
     # --- FIM DO CÁLCULO DE DESEMPENHO ---
 
     # Após o retorno de DFT, os vetores X_real e X_imag estão preenchidos.
@@ -126,8 +126,8 @@ end_program:
     li   a7, 4
     ecall
     
-    # Imprime o número total de instruções (que está em s1)
-    mv   a0, s1
+    # Imprime o número total de instruções (que está em s6)
+    mv   a0, s6
     li   a7, 1 # Syscall: Print Integer
     ecall
 
@@ -136,8 +136,8 @@ end_program:
     li   a7, 4
     ecall
 
-    # Imprime o tempo total de execução (que está em s0)
-    mv   a0, s0
+    # Imprime o tempo total de execução (que está em s5)
+    mv   a0, s5
     li   a7, 1
     ecall
 
