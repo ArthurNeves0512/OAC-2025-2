@@ -1,5 +1,4 @@
 `ifndef PARAM
-	`include "Parametros.v"
 `endif
 
 /* Unidade de geração do imediato */
