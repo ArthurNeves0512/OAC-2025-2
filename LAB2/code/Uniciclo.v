@@ -7,8 +7,8 @@ module Uniciclo (
 	input logic reset,
 	output logic [31:0] PC,
 	output logic [31:0] Instr,
-	input  logic [4:0] regin,    // Entrada de debug (Item 1.2)
-	output logic [31:0] regout   // Saída de debug (Item 1.2)
+	input  logic [4:0] regin,    
+	output logic [31:0] regout   
 	);
 	
 	// --- Sinais (fios) Internos ---
@@ -65,7 +65,6 @@ module Uniciclo (
 			PCnext = PCplus4;   // Padrão
 	end
 	
-	// Memória de Instruções (Instanciada do seu esqueleto)
 	ramI MemI (
 		.address(PC[11:2]), 
 		.clock(clockMem), 
@@ -90,7 +89,6 @@ module Uniciclo (
 		.LUI(LUI)
 	);
 	
-	// Banco de Registradores (Módulo da Maria Fernanda)
 	Registers regs (
 		.iCLK(clockCPU),
 		.iRST(reset),
@@ -122,10 +120,7 @@ module Uniciclo (
 		.ALUControl(ALUControl_out)
 	);
 	
-	// ULA (Módulo do Arthur)
 	ULA alu (
-        // Lógica inteligente: Se for LUI, força a operação OPLUI.
-        // Senão, usa a saída normal do ALUControl.
 		.iControl(LUI ? OPLUI : ALUControl_out), 
 		.iA(ReadData1),
 		.iB(ALU_B),
