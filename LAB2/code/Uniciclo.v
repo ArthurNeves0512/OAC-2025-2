@@ -1,5 +1,4 @@
 `ifndef PARAM
-	`include "Parametros.v"
 `endif
 
 module Uniciclo (
@@ -7,12 +6,12 @@ module Uniciclo (
 	input logic reset,
 	output logic [31:0] PC,
 	output logic [31:0] Instr,
-	input  logic [4:0] regin,    
+	input logic [4:0] regin,   
 	output logic [31:0] regout   
 	);
 	
 	// --- Sinais (fios) Internos ---
-	logic [31:0] PCnext, PCplus4, PCbranch, PCjalr;
+	logic [31:0] PCnext, PCplus4, PCbranch, PCjal, PCjalr;
 	logic [31:0] ImmGen_out;
 	logic [31:0] ReadData1, ReadData2;
 	logic [31:0] ALU_B;
@@ -120,7 +119,7 @@ module Uniciclo (
 		.ALUControl(ALUControl_out)
 	);
 	
-	ULA alu (
+	ALU alu (
 		.iControl(LUI ? OPLUI : ALUControl_out), 
 		.iA(ReadData1),
 		.iB(ALU_B),
