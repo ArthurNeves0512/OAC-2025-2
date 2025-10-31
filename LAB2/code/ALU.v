@@ -4,7 +4,6 @@
  */
 
  `ifndef PARAM
-	`include "Parametros.v"
 `endif
 
  
