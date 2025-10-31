@@ -21,19 +21,19 @@ always @(*)
 begin
     case (iControl)
 		OPAND:
-			oResult  <= iA & iB;
+			oResult  = iA & iB;
 		OPOR:
-			oResult  <= iA | iB;
+			oResult  = iA | iB;
 		OPADD:
-			oResult  <= iA + iB;
+			oResult  = iA + iB;
 		OPSUB:
-			oResult  <= iA - iB;
+			oResult  = iA - iB;
 		OPSLT:
-			oResult  <= iA < iB;
+			oResult  = iA < iB;
         OPLUI: // Operação para "passar" a entrada B (imediato) para a saída
-            oResult  <= iB;
+            oResult  = iB;
 		default:
-			oResult  <= ZERO;
+			oResult  = ZERO;
     endcase
 end
 
