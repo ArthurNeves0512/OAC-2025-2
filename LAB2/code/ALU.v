@@ -1,8 +1,3 @@
-/*
- * ALU
- *
- */
-
 `ifndef PARAM
 `endif
 
