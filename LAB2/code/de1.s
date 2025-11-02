@@ -4,8 +4,8 @@
 .word 0xFFFFFF0F
 
 .text	
-	#lui gp,0x10010   # descomentar para rodar no Rars
-	li gp, 0x10010000
+	lui gp,0x10010   # descomentar para rodar no Rars
+	#li gp, 0x10010000
 MAIN:	lw t1,0(gp)		
 	addi t2,zero,0x777
 	and t0,t1,t2
