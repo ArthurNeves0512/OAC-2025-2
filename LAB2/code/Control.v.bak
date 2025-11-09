@@ -1,5 +1,4 @@
 `ifndef PARAM
-    `include "Parametros.v"
 `endif
 
 module Control (
@@ -86,8 +85,8 @@ always @(*) begin
         OPC_LUI: begin
             LUI      = 1'b1;
             RegWrite = 1'b1;
-            ALUSrc   = 1'b1;
-            ALUOp    = 2'b11;
+            ALUSrc   = 1'b1; // ULA usa Imediato
+            ALUOp    = 2'b11; // **CORRIGIDO**: Sinal especial para LUI
         end
         
         default: begin

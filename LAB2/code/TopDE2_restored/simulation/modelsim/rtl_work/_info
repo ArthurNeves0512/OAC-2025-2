@@ -1,0 +1,400 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/simulation/modelsim
+vALU
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+DXx4 work 10 ALU_v_unit 0 22 _EFGkB`dW;7el_Di8:`f]0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+r1
+!s85 0
+31
+!i10b 1
+!s100 1eFN3K_j;Yi0OzU6:4e3a3
+InKSJH@4kD]21d?W?b[5CY3
+!s105 ALU_v_unit
+S1
+R0
+w1762703407
+Z3 8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ALU.v
+Z4 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ALU.v
+L0 6
+Z5 OV;L;10.5b;63
+Z6 !s108 1762707920.000000
+Z7 !s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ALU.v|
+Z8 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ALU.v|
+!i113 1
+Z9 o-sv -work work
+Z10 !s92 -sv -work work +incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored
+Z11 tCvgOpt 0
+n@a@l@u
+XALU_v_unit
+R1
+V_EFGkB`dW;7el_Di8:`f]0
+r1
+!s85 0
+31
+!i10b 1
+!s100 0ocC9`;HUMnE>BoNzeXzf3
+I_EFGkB`dW;7el_Di8:`f]0
+!i103 1
+S1
+R0
+Z12 w1762704042
+R3
+R4
+Z13 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v
+L0 5
+R5
+R6
+R7
+R8
+!i113 1
+R9
+R10
+R11
+n@a@l@u_v_unit
+vALUControl
+R1
+DXx4 work 17 ALUControl_v_unit 0 22 1J_MNRjFKB]9K:bRHdAfR2
+R2
+r1
+!s85 0
+31
+!i10b 1
+!s100 mia]jNSo>_W:cZ;5gOSR:2
+IhJnDOhRmTKlFn0Jn2bHD63
+!s105 ALUControl_v_unit
+S1
+R0
+Z14 w1762703386
+Z15 8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/ALUControl.v
+Z16 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/ALUControl.v
+L0 5
+R5
+Z17 !s108 1762707919.000000
+Z18 !s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/ALUControl.v|
+Z19 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/ALUControl.v|
+!i113 1
+R9
+Z20 !s92 -sv -work work +incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code
+R11
+n@a@l@u@control
+XALUControl_v_unit
+R1
+V1J_MNRjFKB]9K:bRHdAfR2
+r1
+!s85 0
+31
+!i10b 1
+!s100 NCbPdW8V9RVIXkVeFEk?^0
+I1J_MNRjFKB]9K:bRHdAfR2
+!i103 1
+S1
+R0
+R14
+R15
+R16
+Z21 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Parametros.v
+L0 5
+R5
+R17
+R18
+R19
+!i113 1
+R9
+R20
+R11
+n@a@l@u@control_v_unit
+vControl
+R1
+DXx4 work 14 Control_v_unit 0 22 1`BYf_Lz2d5V_m4l2T1=Y2
+R2
+r1
+!s85 0
+31
+!i10b 1
+!s100 AWClW0bEznhGnHHazVR`B1
+IAgJ5DSe^dQ8`[QR<U2=@33
+!s105 Control_v_unit
+S1
+R0
+Z22 w1762703660
+Z23 8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Control.v
+Z24 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Control.v
+L0 5
+R5
+R17
+Z25 !s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Control.v|
+Z26 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/Control.v|
+!i113 1
+R9
+R20
+R11
+n@control
+XControl_v_unit
+R1
+V1`BYf_Lz2d5V_m4l2T1=Y2
+r1
+!s85 0
+31
+!i10b 1
+!s100 j:4HUOKhJE_Q;3f@KKOde2
+I1`BYf_Lz2d5V_m4l2T1=Y2
+!i103 1
+S1
+R0
+R22
+R23
+R24
+R21
+L0 5
+R5
+R17
+R25
+R26
+!i113 1
+R9
+R20
+R11
+n@control_v_unit
+vImmGen
+R1
+DXx4 work 13 ImmGen_v_unit 0 22 OR;g0f4BS=odiAH?fgSXX1
+R2
+r1
+!s85 0
+31
+!i10b 1
+!s100 ?Kz8<AB>PMAdkkIDhUoZl0
+IoB0HSBC9FFfeS^j7FWmnH3
+!s105 ImmGen_v_unit
+S1
+R0
+w1748206904
+Z27 8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ImmGen.v
+Z28 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ImmGen.v
+L0 7
+R5
+R6
+Z29 !s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ImmGen.v|
+Z30 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ImmGen.v|
+!i113 1
+R9
+R10
+R11
+n@imm@gen
+XImmGen_v_unit
+R1
+VOR;g0f4BS=odiAH?fgSXX1
+r1
+!s85 0
+31
+!i10b 1
+!s100 ChL13Hi]=h@laZIO?XlSk2
+IOR;g0f4BS=odiAH?fgSXX1
+!i103 1
+S1
+R0
+R12
+R27
+R28
+R13
+L0 5
+R5
+R6
+R29
+R30
+!i113 1
+R9
+R10
+R11
+n@imm@gen_v_unit
+XParametros_v_unit
+R1
+Z31 !s110 1762707919
+!i10b 1
+!s100 DmD>n?_;F^PTFXF[1V@`O3
+IA`XIDI90zMX[AI61bCOck2
+VA`XIDI90zMX[AI61bCOck2
+!i103 1
+S1
+R0
+R12
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v
+R13
+L0 5
+R5
+r1
+!s85 0
+31
+R17
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v|
+!i113 1
+R9
+R10
+R11
+n@parametros_v_unit
+vramD
+R1
+R31
+!i10b 1
+!s100 ED0;abIB6A^<R2Q>4:oGi2
+I@VPbGTA^XOXW>[BMN?4PM2
+R2
+!s105 ramD_v_unit
+S1
+R0
+w1748030713
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramD.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramD.v
+Z32 L0 40
+R5
+r1
+!s85 0
+31
+R17
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramD.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramD.v|
+!i113 1
+R9
+R10
+R11
+nram@d
+vramI
+R1
+R31
+!i10b 1
+!s100 `?G>3^g@fmZcYDc3W7>NU1
+I<W0MCSng>PAJ=4?:n4YI83
+R2
+!s105 ramI_v_unit
+S1
+R0
+w1748032182
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramI.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramI.v
+R32
+R5
+r1
+!s85 0
+31
+R17
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramI.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/ramI.v|
+!i113 1
+R9
+R10
+R11
+nram@i
+vRegisters
+R1
+DXx4 work 16 Registers_v_unit 0 22 DB;OFTd@2lEKC27_2MOhV2
+R2
+r1
+!s85 0
+31
+!i10b 1
+!s100 gIC[[C[<=G8Ee3Ua69G=M2
+IP>Ao`cWdPAdZG?L;>c2_A0
+!s105 Registers_v_unit
+S1
+R0
+w1760486711
+Z33 8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Registers.v
+Z34 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Registers.v
+L0 5
+R5
+R6
+Z35 !s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Registers.v|
+Z36 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Registers.v|
+!i113 1
+R9
+R10
+R11
+n@registers
+XRegisters_v_unit
+R1
+VDB;OFTd@2lEKC27_2MOhV2
+r1
+!s85 0
+31
+!i10b 1
+!s100 MVe:]4iVomm9P0gT7;@bz0
+IDB;OFTd@2lEKC27_2MOhV2
+!i103 1
+S1
+R0
+R12
+R33
+R34
+R13
+L0 5
+R5
+R6
+R35
+R36
+!i113 1
+R9
+R10
+R11
+n@registers_v_unit
+vUniciclo
+R1
+DXx4 work 15 Uniciclo_v_unit 0 22 hlhgee3FlKbHKPl]1oEGd2
+R2
+r1
+!s85 0
+31
+!i10b 1
+!s100 6nhO7Tc_nHSXU_d0e?icf0
+I[h3L^L`n5F`V8RGZdjia=0
+!s105 Uniciclo_v_unit
+S1
+R0
+w1748205917
+Z37 8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Uniciclo.v
+Z38 FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Uniciclo.v
+L0 5
+R5
+R6
+Z39 !s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Uniciclo.v|
+Z40 !s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB2/code/TopDE2_restored/Uniciclo.v|
+!i113 1
+R9
+R10
+R11
+n@uniciclo
+XUniciclo_v_unit
+R1
+Vhlhgee3FlKbHKPl]1oEGd2
+r1
+!s85 0
+31
+!i10b 1
+!s100 I2o^<mn`]N4ODiX2>YJDe0
+Ihlhgee3FlKbHKPl]1oEGd2
+!i103 1
+S1
+R0
+R12
+R37
+R38
+R13
+L0 5
+R5
+R6
+R39
+R40
+!i113 1
+R9
+R10
+R11
+n@uniciclo_v_unit
