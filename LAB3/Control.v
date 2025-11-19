@@ -67,8 +67,8 @@ module Control (
         
         case (estado_atual)
             S_FETCH: begin
-                // Espera o contador bater 1 (simulando latência)
-                if (wait_counter >= 2'd1) proximo_estado = S_DECODE;
+                // Espera o contador bater 2 (simulando latência)
+				if (wait_counter >= 2'd2) proximo_estado = S_DECODE;
                 else proximo_estado = S_FETCH; // Fica aqui esperando
             end
             
@@ -90,7 +90,7 @@ module Control (
             
             S_MEM_READ: begin
                 // LW também espera memória
-                if (wait_counter >= 2'd1) proximo_estado = S_MEM_WB;
+				if (wait_counter >= 2'd2) proximo_estado = S_MEM_WB;
                 else proximo_estado = S_MEM_READ; // Fica aqui esperando
             end
             
@@ -118,7 +118,7 @@ module Control (
                 OrigPC = 0;     // Resultado ULA
                 
                 // Só grava IR e atualiza PC no FINAL da espera
-                if (wait_counter >= 2'd1) begin
+				if (wait_counter >= 2'd2) begin
                     EscrevePC = 1;
                     EscreveIR = 1;
                 end
@@ -156,4 +156,5 @@ module Control (
             S_JALR:     begin OrigAULA=1; OrigBULA=2; ALUOp=0; EscrevePC=1; OrigPC=0; EscreveReg=1; end
         endcase
     end
+
 endmodule
