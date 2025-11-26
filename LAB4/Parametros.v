@@ -14,7 +14,7 @@ parameter
     OPSLL     = 5'd7,
     OPSRL     = 5'd8,
     OPSRA     = 5'd9,
-    OPLUI     = 5'd10,
+    OPLUI     = 5'd10, // <--- Este é o OPLUI que a ULA precisa
     OPMUL     = 5'd11,
     OPMULH    = 5'd12,
     OPMULHU   = 5'd13,
@@ -23,7 +23,7 @@ parameter
     OPDIVU    = 5'd16,
     OPREM     = 5'd17,
     OPREMU    = 5'd18,
-    OPNULL    = 5'd31; 
+    OPNULL    = 5'd31; // Fim do primeiro bloco de parâmetros
 
 /* OpCodes */
 parameter
@@ -34,7 +34,7 @@ parameter
     OPC_BRANCH    = 7'b1100011,
     OPC_JALR      = 7'b1100111,
     OPC_JAL       = 7'b1101111,
-    OPC_LUI       = 7'b0110111; 
+    OPC_LUI       = 7'b0110111; // Fim do segundo bloco
 
 /* Funct 7 */
 parameter
@@ -42,7 +42,7 @@ parameter
     FUNCT7_SUB    = 7'b0100000,
     FUNCT7_SLT    = 7'b0000000,
     FUNCT7_OR     = 7'b0000000,
-    FUNCT7_AND    = 7'b0000000; 
+    FUNCT7_AND    = 7'b0000000; // Fim do terceiro bloco
 
 /* Funct 3 */
 parameter
@@ -54,13 +54,13 @@ parameter
     FUNCT3_OR     = 3'b110,
     FUNCT3_AND    = 3'b111,	
     FUNCT3_BEQ    = 3'b000,
-    FUNCT3_JALR   = 3'b000; 
+    FUNCT3_JALR   = 3'b000; // Fim do quarto bloco
 	
 /* Endereços */
 parameter
     TEXT_ADDRESS  = 32'h0040_0000,
     DATA_ADDRESS  = 32'h1001_0000,
     STACK_ADDRESS = 32'h1001_03FC,
-    GP            = DATA_ADDRESS; 
+    GP            = DATA_ADDRESS; // Fim do quinto bloco
 
 `endif
