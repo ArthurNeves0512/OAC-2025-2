@@ -1,4 +1,7 @@
-`include "Parametros.v"
+`ifndef PARAM
+    `include "Parametros.v"
+`endif
+
 module HazardUnit (
 
     // id

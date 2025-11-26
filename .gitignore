@@ -1,0 +1,20 @@
+# Ignorar pastas de banco de dados e compilação temporária
+/db
+/incremental_db
+/output_files
+/simulation
+/greybox_tmp
+/hc_output
+
+# Ignorar arquivos de lock e temporários
+*.flock
+*.qws
+*.jdi
+*.done
+*.rpt
+*.sof
+*.pof
+*.jam
+*.jbc
+*.pin
+*.qdf

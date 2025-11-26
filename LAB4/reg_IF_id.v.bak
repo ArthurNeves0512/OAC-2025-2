@@ -1,4 +1,6 @@
-`include "Parametros.v"
+`ifndef PARAM
+    `include "Parametros.v"
+`endif
 
 module reg_IF_ID (
     input wire clk,

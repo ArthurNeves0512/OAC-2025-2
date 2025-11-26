@@ -1,4 +1,6 @@
-`include "Parametros.v"
+`ifndef PARAM
+    `include "Parametros.v"
+`endif
 
 module TopDE (
     input wire CLOCK, 
