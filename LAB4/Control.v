@@ -72,19 +72,19 @@ module Control (
             
             S_DECODE: begin
                 case (opcode)
-                    OPC_RTYPE:  proximo_estado = S_EXEC_R;
-                    OPC_OPIMM:  proximo_estado = S_EXEC_I;
-                    OPC_LOAD:   proximo_estado = S_MEM_ADDR;
-                    OPC_STORE:  proximo_estado = S_MEM_ADDR;
-                    OPC_BRANCH: proximo_estado = S_BRANCH;
-                    OPC_JAL:    proximo_estado = S_JAL;
-                    OPC_JALR:   proximo_estado = S_JALR;
-                    OPC_LUI:    proximo_estado = S_LUI;
+                    `OPC_RTYPE:  proximo_estado = S_EXEC_R;
+                    `OPC_OPIMM:  proximo_estado = S_EXEC_I;
+                    `OPC_LOAD:   proximo_estado = S_MEM_ADDR;
+                    `OPC_STORE:  proximo_estado = S_MEM_ADDR;
+                    `OPC_BRANCH: proximo_estado = S_BRANCH;
+                    `OPC_JAL:    proximo_estado = S_JAL;
+                    `OPC_JALR:   proximo_estado = S_JALR;
+                    `OPC_LUI:    proximo_estado = S_LUI;
                     default:    proximo_estado = S_FETCH;
                 endcase
             end
 
-            S_MEM_ADDR: proximo_estado = (opcode == OPC_LOAD) ? S_MEM_READ : S_MEM_WRITE;
+            S_MEM_ADDR: proximo_estado = (opcode == `OPC_LOAD) ? S_MEM_READ : S_MEM_WRITE;
             
             S_MEM_READ: begin
                 // LW também espera memória

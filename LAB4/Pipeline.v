@@ -98,7 +98,7 @@ module Pipeline (
     // Registrador de PC
     always @(posedge clockCPU or posedge reset) begin
         if (reset)
-            PC_reg <= TEXT_ADDRESS;
+            PC_reg <= `TEXT_ADDRESS;
         else if (!stall)
             PC_reg <= PC_next;
         // Se stall=1, mantém PC atual

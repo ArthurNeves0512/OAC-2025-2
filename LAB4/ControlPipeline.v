@@ -32,53 +32,53 @@ always @(*) begin
     Jump     = 1'b0;JumpReg  = 1'b0;
 
         case(opcode)
-            OPC_RTYPE: begin // R-type: add, sub, and, or, slt
+            `OPC_RTYPE: begin // R-type: add, sub, and, or, slt
                 RegWrite = 1'b1;
                 ALUOp = 2'b10;      // Usa funct3/funct7
             end
-            
-            OPC_OPIMM: begin // I-type: addi
+
+            `OPC_OPIMM: begin // I-type: addi
                 RegWrite = 1'b1;
                 ALUSrc = 1'b1;      // Usa imediato
                 ALUOp = 2'b10;      // Usa funct3
             end
-            
-            OPC_LOAD: begin // LW
+
+            `OPC_LOAD: begin // LW
                 RegWrite = 1'b1;
                 MemRead = 1'b1;
                 MemToReg = 1'b1;    // Dado vem da memória
                 ALUSrc = 1'b1;      // Usa imediato (offset)
                 ALUOp = 2'b00;      // Soma para calcular endereço
             end
-            
-            OPC_STORE: begin // SW
+
+            `OPC_STORE: begin // SW
                 MemWrite = 1'b1;
                 ALUSrc = 1'b1;      // Usa imediato (offset)
                 ALUOp = 2'b00;      // Soma para calcular endereço
             end
-            
-            OPC_BRANCH: begin // BEQ
+
+            `OPC_BRANCH: begin // BEQ
                 Branch = 1'b1;
                 ALUOp = 2'b01;      // Subtração para comparar
             end
-            
-            OPC_JAL: begin // JAL
+
+            `OPC_JAL: begin // JAL
                 RegWrite = 1'b1;    // Salva PC+4 em rd
                 Jump = 1'b1;
             end
-            
-            OPC_JALR: begin // JALR
+
+            `OPC_JALR: begin // JALR
                 RegWrite = 1'b1;    // Salva PC+4 em rd
                 JumpReg = 1'b1;
                 ALUSrc = 1'b1;      // Usa imediato
             end
-            
-            OPC_LUI: begin // LUI
+
+            `OPC_LUI: begin // LUI
                 RegWrite = 1'b1;
                 ALUSrc = 1'b1;      // Usa imediato
                 ALUOp = 2'b11;      // Passa o imediato direto
             end
-            
+
             default: begin
                 // NOP - mantém valores padrão
             end

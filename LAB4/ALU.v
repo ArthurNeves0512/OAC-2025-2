@@ -2,31 +2,31 @@
  
 module ALU (
 	input 		 [4:0]  iControl,
-	input signed [31:0] iA, 
+	input signed [31:0] iA,
 	input signed [31:0] iB,
 	output logic [31:0] oResult,
-	output logic Zero
+	output logic oZero
 	);
 
-	assign Zero = (oResult==32'b0);
+	assign oZero = (oResult==32'b0);
 
 always @(*)
 begin
     case (iControl)
-		OPAND:
+		`OPAND:
 			oResult  = iA & iB;
-		OPOR:
+		`OPOR:
 			oResult  = iA | iB;
-		OPADD:
+		`OPADD:
 			oResult  = iA + iB;
-		OPSUB:
+		`OPSUB:
 			oResult  = iA - iB;
-		OPSLT:
+		`OPSLT:
 			oResult  = iA < iB;
-      OPLUI: 
+      `OPLUI:
          oResult  = iB;
 		default:
-			oResult  = ZERO;
+			oResult  = `ZERO;
     endcase
 end
 

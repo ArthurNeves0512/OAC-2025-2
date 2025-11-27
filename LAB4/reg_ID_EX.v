@@ -42,7 +42,23 @@ module reg_ID_EX (
 );
 
     always @(posedge clk or posedge reset) begin
-        if (reset || flush) begin
+        if (reset) begin
+            pc_plus_4_out <= 32'b0;
+            read_data1_out <= 32'b0;
+            read_data2_out <= 32'b0;
+            imm_out <= 32'b0;
+            rs1_out <= 5'b0;
+            rs2_out <= 5'b0;
+            rd_out <= 5'b0;
+            ALUSrc_out <= 1'b0;
+            ALUOp_out <= 2'b0;
+            MemRead_out <= 1'b0;
+            MemWrite_out <= 1'b0;
+            Branch_out <= 1'b0;
+            RegWrite_out <= 1'b0;
+            MemToReg_out <= 1'b0;
+        end else if (flush) begin
+            // Flush: insere bolha (NOP)
             pc_plus_4_out <= 32'b0;
             read_data1_out <= 32'b0;
             read_data2_out <= 32'b0;
