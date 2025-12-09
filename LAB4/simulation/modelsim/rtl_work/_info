@@ -1,0 +1,374 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/simulation/modelsim
+vALU
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1765324575
+!i10b 1
+!s100 dj;znG9a>Qa6Oo3`5<<aV2
+IdeL3=T[2kbNVQD:`H57iB1
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+!s105 ALU_v_unit
+S1
+R0
+w1764212250
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALU.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALU.v
+L0 3
+Z4 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z5 !s108 1765324575.000000
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALU.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALU.v|
+!i113 1
+Z6 o-sv -work work
+Z7 !s92 -sv -work work +incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4
+Z8 tCvgOpt 0
+n@a@l@u
+vALUControl
+R1
+R2
+!i10b 1
+!s100 EbYLYWQV[oc;a;noJ><QT2
+I?IiLNGmc]9N;a_SGOlW7B0
+R3
+!s105 ALUControl_v_unit
+S1
+R0
+Z9 w1764211400
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALUControl.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALUControl.v
+L0 3
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALUControl.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ALUControl.v|
+!i113 1
+R6
+R7
+R8
+n@a@l@u@control
+vControlPipeline
+R1
+R2
+!i10b 1
+!s100 <W@C6MInNOcd`b>4jeV0=1
+IWXdM:FQiV;4UnIOl5I2T[3
+R3
+!s105 ControlPipeline_v_unit
+S1
+R0
+R9
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ControlPipeline.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ControlPipeline.v
+L0 3
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ControlPipeline.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ControlPipeline.v|
+!i113 1
+R6
+R7
+R8
+n@control@pipeline
+vHazardUnit
+R1
+R2
+!i10b 1
+!s100 La>JKkH7C?k7F[5E^7UcV0
+I2_zkP^9a7]hRlbfE<_F0H3
+R3
+!s105 HazardUnit_v_unit
+S1
+R0
+Z10 w1764211347
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/HazardUnit.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/HazardUnit.v
+L0 2
+R4
+r1
+!s85 0
+31
+Z11 !s108 1765324574.000000
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/HazardUnit.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/HazardUnit.v|
+!i113 1
+R6
+R7
+R8
+n@hazard@unit
+vImmGen
+R1
+Z12 !s110 1765324574
+!i10b 1
+!s100 WnJg5lm9iIL]WNk9<4`k?3
+I`kYJXd?7j=T6V5zTe`m?D1
+R3
+!s105 ImmGen_v_unit
+S1
+R0
+R9
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ImmGen.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ImmGen.v
+L0 5
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ImmGen.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ImmGen.v|
+!i113 1
+R6
+R7
+R8
+n@imm@gen
+vPipeline
+R1
+R12
+!i10b 1
+!s100 DjTkAMRcoFL67d8`Xb0J43
+IO2O5G53QiMH0P_BT9lmDm3
+R3
+!s105 Pipeline_v_unit
+S1
+R0
+w1765324269
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Pipeline.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Pipeline.v
+L0 3
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Pipeline.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Pipeline.v|
+!i113 1
+R6
+R7
+R8
+n@pipeline
+vramD
+R1
+R12
+!i10b 1
+!s100 ED0;abIB6A^<R2Q>4:oGi2
+IzSL`EVO<]U6Wj@>:^C]OP1
+R3
+!s105 ramD_v_unit
+S1
+R0
+Z13 w1764211752
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramD.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramD.v
+Z14 L0 40
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramD.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramD.v|
+!i113 1
+R6
+R7
+R8
+nram@d
+vramI
+R1
+R12
+!i10b 1
+!s100 `?G>3^g@fmZcYDc3W7>NU1
+I`NeE[bd]K1kebUZaJ^AlL0
+R3
+!s105 ramI_v_unit
+S1
+R0
+R13
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramI.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramI.v
+R14
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramI.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/ramI.v|
+!i113 1
+R6
+R7
+R8
+nram@i
+vreg_EX_MEM_fixed
+R1
+R12
+!i10b 1
+!s100 kHh:6R@eE0eKLVHE^>93i0
+IF<>oLMgokFIb3@:_;:]HS2
+R3
+!s105 reg_EX_MEM_v_unit
+S1
+R0
+w1765323609
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_EX_MEM.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_EX_MEM.v
+L0 3
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_EX_MEM.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_EX_MEM.v|
+!i113 1
+R6
+R7
+R8
+nreg_@e@x_@m@e@m_fixed
+vreg_ID_EX_fixed
+R1
+R12
+!i10b 1
+!s100 372k2AI;;LVOF=DVILX203
+I7BN_^>;V[TCY=GWmjUTmn2
+R3
+!s105 reg_ID_EX_v_unit
+S1
+R0
+w1765323570
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_ID_EX.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_ID_EX.v
+L0 3
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_ID_EX.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_ID_EX.v|
+!i113 1
+R6
+R7
+R8
+nreg_@i@d_@e@x_fixed
+vreg_IF_ID
+R1
+R12
+!i10b 1
+!s100 3E8cA;aSo;em2J^dmZZ1Z2
+I1:AoRThWM^6BPA[TaC:`B2
+R3
+!s105 reg_IF_id_v_unit
+S1
+R0
+R10
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_IF_id.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_IF_id.v
+L0 3
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_IF_id.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_IF_id.v|
+!i113 1
+R6
+R7
+R8
+nreg_@i@f_@i@d
+vreg_MEM_WB
+R1
+R12
+!i10b 1
+!s100 QOdR:fZ?aoNfARIg>oG5F2
+I9?ah:Q1am2n7`oRKD2;7Y2
+R3
+!s105 reg_MEM_WB_v_unit
+S1
+R0
+R10
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_MEM_WB.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_MEM_WB.v
+L0 3
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_MEM_WB.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/reg_MEM_WB.v|
+!i113 1
+R6
+R7
+R8
+nreg_@m@e@m_@w@b
+vRegisters
+R1
+R12
+!i10b 1
+!s100 oVi894>Dkdl[3^LZEYkWF2
+I;SO:fMcHP<L;LQSGci0zQ0
+R3
+!s105 Registers_v_unit
+S1
+R0
+R10
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Registers.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Registers.v
+L0 1
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Registers.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Registers.v|
+!i113 1
+R6
+R7
+R8
+n@registers
+vTopDE
+R1
+R12
+!i10b 1
+!s100 :Y>O_dXWG8[^VPPUN1lAC3
+IiBPki@`fm[>zM8Adid>X23
+R3
+!s105 TopDE_v_unit
+S1
+R0
+R10
+8C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/TopDE.v
+FC:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/TopDE.v
+L0 3
+R4
+r1
+!s85 0
+31
+R11
+!s107 C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/Parametros.v|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/TopDE.v|
+!s90 -reportprogress|300|-sv|-work|work|+incdir+C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4|C:/Users/raulm/OneDrive/Documents/code/oac/OAC-2025-2/LAB4/TopDE.v|
+!i113 1
+R6
+R7
+R8
+n@top@d@e

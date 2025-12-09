@@ -1,6 +1,6 @@
 `include "Parametros.v"
 
-module reg_ID_EX (
+module reg_ID_EX_fixed (
     input wire clk,
     input wire reset,
     input wire flush,
@@ -13,6 +13,9 @@ module reg_ID_EX (
     input wire [4:0] rs1_in,
     input wire [4:0] rs2_in,
     input wire [4:0] rd_in,
+    input wire [2:0] funct3_in,
+    input wire [6:0] funct7_in,
+    input wire [31:0] branch_target_in,
     
     // controle
     input wire ALUSrc_in,
@@ -31,6 +34,9 @@ module reg_ID_EX (
     output reg [4:0] rs1_out,
     output reg [4:0] rs2_out,
     output reg [4:0] rd_out,
+    output reg [2:0] funct3_out,
+    output reg [6:0] funct7_out,
+    output reg [31:0] branch_target_out,
     
     output reg ALUSrc_out,
     output reg [1:0] ALUOp_out,
@@ -50,6 +56,9 @@ module reg_ID_EX (
             rs1_out <= 5'b0;
             rs2_out <= 5'b0;
             rd_out <= 5'b0;
+            funct3_out <= 3'b0;
+            funct7_out <= 7'b0;
+            branch_target_out <= 32'b0;
             ALUSrc_out <= 1'b0;
             ALUOp_out <= 2'b0;
             MemRead_out <= 1'b0;
@@ -66,6 +75,9 @@ module reg_ID_EX (
             rs1_out <= 5'b0;
             rs2_out <= 5'b0;
             rd_out <= 5'b0;
+            funct3_out <= 3'b0;
+            funct7_out <= 7'b0;
+            branch_target_out <= 32'b0;
             ALUSrc_out <= 1'b0;
             ALUOp_out <= 2'b0;
             MemRead_out <= 1'b0;
@@ -81,6 +93,9 @@ module reg_ID_EX (
             rs1_out <= rs1_in;
             rs2_out <= rs2_in;
             rd_out <= rd_in;
+            funct3_out <= funct3_in;
+            funct7_out <= funct7_in;
+            branch_target_out <= branch_target_in;
             ALUSrc_out <= ALUSrc_in;
             ALUOp_out <= ALUOp_in;
             MemRead_out <= MemRead_in;

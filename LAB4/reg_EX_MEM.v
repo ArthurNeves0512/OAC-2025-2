@@ -1,6 +1,6 @@
 `include "Parametros.v"
 
-module reg_EX_MEM (
+module reg_EX_MEM_fixed (
     input wire clk,
     input wire reset,
 
@@ -9,6 +9,7 @@ module reg_EX_MEM (
     input wire [31:0] read_data2_in,
     input wire [4:0] rd_in,
     input wire alu_zero_in,
+    input wire [31:0] branch_target_in,  // NOVO
 
     // controle
     input wire MemRead_in,
@@ -22,6 +23,7 @@ module reg_EX_MEM (
     output reg [31:0] read_data2_out,
     output reg [4:0] rd_out,
     output reg alu_zero_out,
+    output reg [31:0] branch_target_out,  // NOVO
 
     output reg MemRead_out,
     output reg MemWrite_out,
@@ -36,6 +38,7 @@ module reg_EX_MEM (
             read_data2_out <= 32'b0;
             rd_out <= 5'b0;
             alu_zero_out <= 1'b0;
+            branch_target_out <= 32'b0;
             MemRead_out <= 1'b0;
             MemWrite_out <= 1'b0;
             Branch_out <= 1'b0;
@@ -46,6 +49,7 @@ module reg_EX_MEM (
             read_data2_out <= read_data2_in;
             rd_out <= rd_in;
             alu_zero_out <= alu_zero_in;
+            branch_target_out <= branch_target_in;
             MemRead_out <= MemRead_in;
             MemWrite_out <= MemWrite_in;
             Branch_out <= Branch_in;

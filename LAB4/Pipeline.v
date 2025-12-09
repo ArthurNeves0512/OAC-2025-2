@@ -16,7 +16,8 @@ module Pipeline (
     
     //--- Estágio IF (Instruction Fetch) ---
     reg [31:0] PC_reg;
-    wire [31:0] PC_next, PC_plus_4;
+    reg [31:0] PC_next;  
+    wire [31:0] PC_plus_4;
     wire [31:0] Instr_wire;
     
     //--- Registrador IF/ID ---
@@ -27,6 +28,7 @@ module Pipeline (
     wire ALUSrc_ID, MemRead_ID, MemWrite_ID, Branch_ID, RegWrite_ID, MemToReg_ID;
     wire [1:0] ALUOp_ID;
     wire Jump_ID, JumpReg_ID;
+    wire [31:0] branch_target_ID;  // Calcula target já no ID
     
     //--- Registrador ID/EX ---
     wire [31:0] ID_EX_PC_plus_4, ID_EX_ReadData1, ID_EX_ReadData2, ID_EX_Imm;
@@ -34,6 +36,9 @@ module Pipeline (
     wire ID_EX_ALUSrc, ID_EX_MemRead, ID_EX_MemWrite, ID_EX_Branch;
     wire ID_EX_RegWrite, ID_EX_MemToReg;
     wire [1:0] ID_EX_ALUOp;
+    wire [2:0] ID_EX_funct3;  // ADICIONADO
+    wire [6:0] ID_EX_funct7;  // ADICIONADO
+    wire [31:0] ID_EX_branch_target;  // ADICIONADO
     
     //--- Estágio EX (Execute) ---
     wire [3:0] ALUControl;
@@ -45,11 +50,11 @@ module Pipeline (
     wire [4:0] EX_MEM_Rd;
     wire EX_MEM_ALU_zero, EX_MEM_MemRead, EX_MEM_MemWrite;
     wire EX_MEM_Branch, EX_MEM_RegWrite, EX_MEM_MemToReg;
+    wire [31:0] EX_MEM_branch_target;  // ADICIONADO
     
     //--- Estágio MEM (Memory Access) ---
     wire [31:0] Mem_ReadData;
     wire branch_taken;
-    wire [31:0] branch_target;
     
     //--- Registrador MEM/WB ---
     wire [31:0] MEM_WB_MemData, MEM_WB_ALU_result;
@@ -77,7 +82,7 @@ module Pipeline (
     //==========================================================================
     
     assign PC_plus_4 = PC_reg + 4;
-    
+
     // Cálculo de endereços de jump
     assign jump_target_jal = PC_reg + ImmGen_out;
     assign jump_target_jalr = ReadData1 + ImmGen_out;
@@ -86,13 +91,13 @@ module Pipeline (
     // Lógica de seleção do próximo PC
     always @(*) begin
         if (branch_taken)
-            PC_next = EX_MEM_ALU_result;        // Branch tomado
+            PC_next = EX_MEM_branch_target;
         else if (Jump_ID)
-            PC_next = jump_target_jal;          // JAL
+            PC_next = jump_target_jal;
         else if (JumpReg_ID)
-            PC_next = jump_target_jalr;         // JALR
+            PC_next = jump_target_jalr;
         else
-            PC_next = PC_plus_4;                // Sequencial
+            PC_next = PC_plus_4;
     end
     
     // Registrador de PC
@@ -101,10 +106,9 @@ module Pipeline (
             PC_reg <= `TEXT_ADDRESS;
         else if (!stall)
             PC_reg <= PC_next;
-        // Se stall=1, mantém PC atual
     end
     
-    // Memória de Instruções (latência de 2 ciclos, mas clock CPU é metade do clock MEM)
+    // Memória de Instruções
     ramI MemInstr (
         .address(PC_reg[11:2]),
         .clock(clockMem),
@@ -121,7 +125,7 @@ module Pipeline (
         .clk(clockCPU),
         .reset(reset),
         .stall(stall),
-        .flush(IF_ID_flush || should_jump),  // Flush em branch ou jump
+        .flush(IF_ID_flush || should_jump),
         .instr_in(Instr_wire),
         .pc_plus_4_in(PC_plus_4),
         .instr_out(IF_ID_Instr),
@@ -151,8 +155,8 @@ module Pipeline (
         .iCLK(clockCPU),
         .iRST(reset),
         .iRegWrite(MEM_WB_RegWrite),
-        .iReadRegister1(IF_ID_Instr[19:15]),   // rs1
-        .iReadRegister2(IF_ID_Instr[24:20]),   // rs2
+        .iReadRegister1(IF_ID_Instr[19:15]),
+        .iReadRegister2(IF_ID_Instr[24:20]),
         .iWriteRegister(MEM_WB_Rd),
         .iWriteData(WriteBack_Data),
         .oReadData1(ReadData1),
@@ -166,12 +170,14 @@ module Pipeline (
         .iInstrucao(IF_ID_Instr),
         .oImm(ImmGen_out)
     );
+    
+    assign branch_target_ID = IF_ID_PC_plus_4 - 4 + ImmGen_out;  // PC atual + offset
 
     //==========================================================================
-    //  REGISTRADOR ID/EX
+    //  REGISTRADOR ID/EX - MODIFICADO
     //==========================================================================
     
-    reg_ID_EX IDEX (
+    reg_ID_EX_fixed IDEX (
         .clk(clockCPU),
         .reset(reset),
         .flush(ID_EX_flush || should_jump),
@@ -183,6 +189,9 @@ module Pipeline (
         .rs1_in(IF_ID_Instr[19:15]),
         .rs2_in(IF_ID_Instr[24:20]),
         .rd_in(IF_ID_Instr[11:7]),
+        .funct3_in(IF_ID_Instr[14:12]),      
+        .funct7_in(IF_ID_Instr[31:25]),      
+        .branch_target_in(branch_target_ID), 
         
         .ALUSrc_in(ALUSrc_ID),
         .ALUOp_in(ALUOp_ID),
@@ -199,6 +208,9 @@ module Pipeline (
         .rs1_out(ID_EX_Rs1),
         .rs2_out(ID_EX_Rs2),
         .rd_out(ID_EX_Rd),
+        .funct3_out(ID_EX_funct3),
+        .funct7_out(ID_EX_funct7),
+        .branch_target_out(ID_EX_branch_target),
         
         .ALUSrc_out(ID_EX_ALUSrc),
         .ALUOp_out(ID_EX_ALUOp),
@@ -213,11 +225,11 @@ module Pipeline (
     //  ESTÁGIO EX (Execute)
     //==========================================================================
     
-    // Controlador da ULA
+    // Controlador da ULA - CORRIGIDO
     ALUControl ALUCtrl (
         .ALUOp(ID_EX_ALUOp),
-        .funct3(ID_EX_Imm[14:12]),  // Pega do imediato (simplificação)
-        .funct7(ID_EX_Imm[31:25]),
+        .funct3(ID_EX_funct3),
+        .funct7(ID_EX_funct7),
         .ALUControl(ALUControl)
     );
     
@@ -234,10 +246,10 @@ module Pipeline (
     );
 
     //==========================================================================
-    //  REGISTRADOR EX/MEM
+    //  REGISTRADOR EX/MEM - MODIFICADO
     //==========================================================================
     
-    reg_EX_MEM EXMEM (
+    reg_EX_MEM_fixed EXMEM (
         .clk(clockCPU),
         .reset(reset),
         
@@ -245,6 +257,7 @@ module Pipeline (
         .read_data2_in(ID_EX_ReadData2),
         .rd_in(ID_EX_Rd),
         .alu_zero_in(ALU_zero),
+        .branch_target_in(ID_EX_branch_target),
         
         .MemRead_in(ID_EX_MemRead),
         .MemWrite_in(ID_EX_MemWrite),
@@ -256,6 +269,7 @@ module Pipeline (
         .read_data2_out(EX_MEM_ReadData2),
         .rd_out(EX_MEM_Rd),
         .alu_zero_out(EX_MEM_ALU_zero),
+        .branch_target_out(EX_MEM_branch_target),
         
         .MemRead_out(EX_MEM_MemRead),
         .MemWrite_out(EX_MEM_MemWrite),
@@ -277,7 +291,6 @@ module Pipeline (
         .q(Mem_ReadData)
     );
     
-    // Lógica de Branch
     assign branch_taken = EX_MEM_Branch & EX_MEM_ALU_zero;
 
     //==========================================================================
