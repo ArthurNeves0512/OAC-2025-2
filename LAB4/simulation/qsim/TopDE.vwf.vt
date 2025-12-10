@@ -18,7 +18,7 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "12/09/2025 20:54:38"
+// Generated on "12/09/2025 21:23:58"
                                                                                 
 // Verilog Test Bench (with test vectors) for design :                          TopDE
 // 
@@ -34,6 +34,19 @@ reg [4:0] Regin;
 reg Reset;
 // wires                                               
 wire ClockDIV;
+wire [4:0] DEBUG_EX_MEM_Rd;
+wire DEBUG_EX_MEM_RegWrite;
+wire [4:0] DEBUG_ID_EX_Rd;
+wire DEBUG_ID_EX_RegWrite;
+wire DEBUG_ID_EX_flush;
+wire [31:0] DEBUG_IF_ID_Instr;
+wire DEBUG_IF_ID_flush;
+wire [4:0] DEBUG_MEM_WB_Rd;
+wire DEBUG_MEM_WB_RegWrite;
+wire [31:0] DEBUG_WriteBack_Data;
+wire DEBUG_branch_taken;
+wire DEBUG_should_jump;
+wire DEBUG_stall;
 wire [31:0] Instr;
 wire [31:0] PC;
 wire [31:0] Regout;
@@ -43,6 +56,19 @@ TopDE i1 (
 // port map - connection between master ports and signals/registers   
 	.CLOCK(CLOCK),
 	.ClockDIV(ClockDIV),
+	.DEBUG_EX_MEM_Rd(DEBUG_EX_MEM_Rd),
+	.DEBUG_EX_MEM_RegWrite(DEBUG_EX_MEM_RegWrite),
+	.DEBUG_ID_EX_Rd(DEBUG_ID_EX_Rd),
+	.DEBUG_ID_EX_RegWrite(DEBUG_ID_EX_RegWrite),
+	.DEBUG_ID_EX_flush(DEBUG_ID_EX_flush),
+	.DEBUG_IF_ID_Instr(DEBUG_IF_ID_Instr),
+	.DEBUG_IF_ID_flush(DEBUG_IF_ID_flush),
+	.DEBUG_MEM_WB_Rd(DEBUG_MEM_WB_Rd),
+	.DEBUG_MEM_WB_RegWrite(DEBUG_MEM_WB_RegWrite),
+	.DEBUG_WriteBack_Data(DEBUG_WriteBack_Data),
+	.DEBUG_branch_taken(DEBUG_branch_taken),
+	.DEBUG_should_jump(DEBUG_should_jump),
+	.DEBUG_stall(DEBUG_stall),
 	.Instr(Instr),
 	.PC(PC),
 	.Regin(Regin),
@@ -51,21 +77,15 @@ TopDE i1 (
 );
 initial 
 begin 
-#2000000 $finish;
+#1000000 $finish;
 end 
 
 // CLOCK
-initial
+always
 begin
-	repeat(9)
-	begin
-		CLOCK = 1'b0;
-		CLOCK = #50000 1'b1;
-		# 50000;
-	end
 	CLOCK = 1'b0;
-	CLOCK = #50000 1'b1;
-	CLOCK = #49000 1'b0;
+	CLOCK = #5000 1'b1;
+	#5000;
 end 
 
 // Reset

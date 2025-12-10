@@ -1,16 +1,16 @@
-Fitter Status : Successful - Tue Dec 09 20:41:23 2025
+Fitter Status : Successful - Tue Dec 09 21:03:19 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : TopDE
 Top-level Entity Name : TopDE
 Family : Cyclone IV E
-Device : EP4CE6F17C6
+Device : EP4CE15F23C6
 Timing Models : Final
-Total logic elements : 3,932 / 6,272 ( 63 % )
-    Total combinational functions : 3,286 / 6,272 ( 52 % )
-    Dedicated logic registers : 1,662 / 6,272 ( 26 % )
+Total logic elements : 3,669 / 15,408 ( 24 % )
+    Total combinational functions : 3,270 / 15,408 ( 21 % )
+    Dedicated logic registers : 1,662 / 15,408 ( 11 % )
 Total registers : 1662
-Total pins : 104 / 180 ( 58 % )
+Total pins : 191 / 344 ( 56 % )
 Total virtual pins : 0
-Total memory bits : 65,536 / 276,480 ( 24 % )
-Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
-Total PLLs : 0 / 2 ( 0 % )
+Total memory bits : 65,536 / 516,096 ( 13 % )
+Embedded Multiplier 9-bit elements : 0 / 112 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

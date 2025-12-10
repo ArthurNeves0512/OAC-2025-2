@@ -7,7 +7,22 @@ module Pipeline (
     input wire [4:0] regin,
     output wire [31:0] PC,
     output wire [31:0] Instr,
-    output wire [31:0] regout
+    output wire [31:0] regout,
+    
+    // Sinais de DEBUG
+    output wire [31:0] DEBUG_IF_ID_Instr,
+    output wire [4:0] DEBUG_ID_EX_Rd,
+    output wire DEBUG_ID_EX_RegWrite,
+    output wire [4:0] DEBUG_EX_MEM_Rd,
+    output wire DEBUG_EX_MEM_RegWrite,
+    output wire [4:0] DEBUG_MEM_WB_Rd,
+    output wire DEBUG_MEM_WB_RegWrite,
+    output wire [31:0] DEBUG_WriteBack_Data,
+    output wire DEBUG_stall,
+    output wire DEBUG_IF_ID_flush,
+    output wire DEBUG_ID_EX_flush,
+    output wire DEBUG_should_jump,
+    output wire DEBUG_branch_taken
 );
 
     //==========================================================================
@@ -16,8 +31,7 @@ module Pipeline (
     
     //--- Estágio IF (Instruction Fetch) ---
     reg [31:0] PC_reg;
-    reg [31:0] PC_next;  
-    wire [31:0] PC_plus_4;
+    wire [31:0] PC_next, PC_plus_4;
     wire [31:0] Instr_wire;
     
     //--- Registrador IF/ID ---
@@ -82,8 +96,8 @@ module Pipeline (
     //==========================================================================
     
     assign PC_plus_4 = PC_reg + 4;
-
-    // Cálculo de endereços de jump
+    
+    // Cálculo de endereços de jump (usa PC atual e imediato do estágio ID)
     assign jump_target_jal = PC_reg + ImmGen_out;
     assign jump_target_jalr = ReadData1 + ImmGen_out;
     assign should_jump = Jump_ID || JumpReg_ID;
@@ -91,13 +105,13 @@ module Pipeline (
     // Lógica de seleção do próximo PC
     always @(*) begin
         if (branch_taken)
-            PC_next = EX_MEM_branch_target;
+            PC_next = EX_MEM_branch_target;     // Branch tomado (usa target calculado)
         else if (Jump_ID)
-            PC_next = jump_target_jal;
+            PC_next = jump_target_jal;          // JAL
         else if (JumpReg_ID)
-            PC_next = jump_target_jalr;
+            PC_next = jump_target_jalr;         // JALR
         else
-            PC_next = PC_plus_4;
+            PC_next = PC_plus_4;                // Sequencial
     end
     
     // Registrador de PC
@@ -106,6 +120,7 @@ module Pipeline (
             PC_reg <= `TEXT_ADDRESS;
         else if (!stall)
             PC_reg <= PC_next;
+        // Se stall=1, mantém PC atual
     end
     
     // Memória de Instruções
@@ -171,6 +186,7 @@ module Pipeline (
         .oImm(ImmGen_out)
     );
     
+    // NOVO: Calcula branch target já no ID para propagar pelo pipeline
     assign branch_target_ID = IF_ID_PC_plus_4 - 4 + ImmGen_out;  // PC atual + offset
 
     //==========================================================================
@@ -189,9 +205,9 @@ module Pipeline (
         .rs1_in(IF_ID_Instr[19:15]),
         .rs2_in(IF_ID_Instr[24:20]),
         .rd_in(IF_ID_Instr[11:7]),
-        .funct3_in(IF_ID_Instr[14:12]),      
-        .funct7_in(IF_ID_Instr[31:25]),      
-        .branch_target_in(branch_target_ID), 
+        .funct3_in(IF_ID_Instr[14:12]),      // NOVO
+        .funct7_in(IF_ID_Instr[31:25]),      // NOVO
+        .branch_target_in(branch_target_ID), // NOVO
         
         .ALUSrc_in(ALUSrc_ID),
         .ALUOp_in(ALUOp_ID),
@@ -208,9 +224,9 @@ module Pipeline (
         .rs1_out(ID_EX_Rs1),
         .rs2_out(ID_EX_Rs2),
         .rd_out(ID_EX_Rd),
-        .funct3_out(ID_EX_funct3),
-        .funct7_out(ID_EX_funct7),
-        .branch_target_out(ID_EX_branch_target),
+        .funct3_out(ID_EX_funct3),           // NOVO
+        .funct7_out(ID_EX_funct7),           // NOVO
+        .branch_target_out(ID_EX_branch_target), // NOVO
         
         .ALUSrc_out(ID_EX_ALUSrc),
         .ALUOp_out(ID_EX_ALUOp),
@@ -228,8 +244,8 @@ module Pipeline (
     // Controlador da ULA - CORRIGIDO
     ALUControl ALUCtrl (
         .ALUOp(ID_EX_ALUOp),
-        .funct3(ID_EX_funct3),
-        .funct7(ID_EX_funct7),
+        .funct3(ID_EX_funct3),  // Agora usa o funct3 correto!
+        .funct7(ID_EX_funct7),  // Agora usa o funct7 correto!
         .ALUControl(ALUControl)
     );
     
@@ -257,7 +273,7 @@ module Pipeline (
         .read_data2_in(ID_EX_ReadData2),
         .rd_in(ID_EX_Rd),
         .alu_zero_in(ALU_zero),
-        .branch_target_in(ID_EX_branch_target),
+        .branch_target_in(ID_EX_branch_target),  // NOVO
         
         .MemRead_in(ID_EX_MemRead),
         .MemWrite_in(ID_EX_MemWrite),
@@ -269,7 +285,7 @@ module Pipeline (
         .read_data2_out(EX_MEM_ReadData2),
         .rd_out(EX_MEM_Rd),
         .alu_zero_out(EX_MEM_ALU_zero),
-        .branch_target_out(EX_MEM_branch_target),
+        .branch_target_out(EX_MEM_branch_target),  // NOVO
         
         .MemRead_out(EX_MEM_MemRead),
         .MemWrite_out(EX_MEM_MemWrite),
@@ -291,6 +307,7 @@ module Pipeline (
         .q(Mem_ReadData)
     );
     
+    // Lógica de Branch - CORRIGIDO
     assign branch_taken = EX_MEM_Branch & EX_MEM_ALU_zero;
 
     //==========================================================================
@@ -337,5 +354,23 @@ module Pipeline (
         .IF_ID_flush(IF_ID_flush),
         .ID_EX_flush(ID_EX_flush)
     );
+    
+    //==========================================================================
+    //  SINAIS DE DEBUG - EXPOR PARA FORA DO MÓDULO
+    //==========================================================================
+    
+    assign DEBUG_IF_ID_Instr = IF_ID_Instr;
+    assign DEBUG_ID_EX_Rd = ID_EX_Rd;
+    assign DEBUG_ID_EX_RegWrite = ID_EX_RegWrite;
+    assign DEBUG_EX_MEM_Rd = EX_MEM_Rd;
+    assign DEBUG_EX_MEM_RegWrite = EX_MEM_RegWrite;
+    assign DEBUG_MEM_WB_Rd = MEM_WB_Rd;
+    assign DEBUG_MEM_WB_RegWrite = MEM_WB_RegWrite;
+    assign DEBUG_WriteBack_Data = WriteBack_Data;
+    assign DEBUG_stall = stall;
+    assign DEBUG_IF_ID_flush = IF_ID_flush;
+    assign DEBUG_ID_EX_flush = ID_EX_flush;
+    assign DEBUG_should_jump = should_jump;
+    assign DEBUG_branch_taken = branch_taken;
 
 endmodule

@@ -392,6 +392,354 @@
 					"strict" : false
 				},
 				{
+					"name" : "DEBUG_IF_ID_Instr[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[5]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[6]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[7]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[8]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[9]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[10]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[11]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[12]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[13]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[14]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[15]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[16]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[17]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[18]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[19]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[20]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[21]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[22]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[23]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[24]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[25]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[26]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[27]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[28]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[29]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[30]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_Instr[31]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_Rd[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_Rd[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_Rd[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_Rd[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_Rd[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_RegWrite",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_EX_MEM_Rd[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_EX_MEM_Rd[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_EX_MEM_Rd[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_EX_MEM_Rd[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_EX_MEM_Rd[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_EX_MEM_RegWrite",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_MEM_WB_Rd[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_MEM_WB_Rd[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_MEM_WB_Rd[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_MEM_WB_Rd[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_MEM_WB_Rd[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_MEM_WB_RegWrite",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[0]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[1]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[2]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[3]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[4]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[5]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[6]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[7]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[8]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[9]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[10]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[11]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[12]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[13]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[14]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[15]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[16]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[17]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[18]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[19]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[20]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[21]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[22]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[23]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[24]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[25]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[26]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[27]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[28]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[29]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[30]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_WriteBack_Data[31]",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_stall",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_IF_ID_flush",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_ID_EX_flush",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_should_jump",
+					"strict" : false
+				},
+				{
+					"name" : "DEBUG_branch_taken",
+					"strict" : false
+				},
+				{
 					"name" : "Regin[3]",
 					"strict" : false
 				},
